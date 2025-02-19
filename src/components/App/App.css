@@ -1,0 +1,11 @@
+.page {
+  background-color: rgba(243, 243, 243, 1);
+  font-family: "CabinetGrotesk-Bold";
+  font-weight: 700;
+}
+
+.page__content {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
