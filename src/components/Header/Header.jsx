@@ -5,8 +5,10 @@ import avatar from "../../assets/avatar.svg";
 function Header() {
   return (
     <header className="header">
-      <img className="header__logo" src={logo} />
-      <p className="header__date-and-location">DATE, LOCATION</p>
+      <div className="header__left">
+        <img className="header__logo" src={logo} />
+        <p className="header__date-and-location">DATE, LOCATION</p>
+      </div>
       <button className="header__add-clothes-btn">+ Add clothes</button>
       <div className="header__user-container">
         <p className="header__username">Terrence Tegegne</p>

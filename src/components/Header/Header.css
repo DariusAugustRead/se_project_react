@@ -9,20 +9,20 @@
   padding: 32px 0 28px;
 }
 
+.header__left {
+  display: flex;
+  flex-direction: row;
+}
+
 .header__logo {
-  margin-right: 24px;
+  margin: 0 24px 5px 0;
 }
 
 .header__date-and-location {
   margin: 0;
   font-size: 20px;
   line-height: 24px;
-}
-
-.header__user-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  align-self: center;
 }
 
 .header__add-clothes-btn {
@@ -33,8 +33,32 @@
   line-height: 24px;
 }
 
+.header__user-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .header__username {
   margin: 0;
   font-size: 20px;
   line-height: 24.8px;
+}
+
+@media screen and (min-width: 375px) and (max-width: 700px) {
+  .header__left {
+    flex-direction: column;
+  }
+
+  .header__date-and-location {
+    margin-top: 32px;
+  }
+
+  .header__add-clothes-btn {
+    visibility: hidden;
+  }
+
+  .header__user-container {
+    visibility: hidden;
+  }
 }

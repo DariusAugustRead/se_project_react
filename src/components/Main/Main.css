@@ -13,6 +13,7 @@
 .card {
   position: relative;
   display: flex;
+  justify-content: center;
 }
 
 .card__name {
@@ -24,7 +25,7 @@
   font-size: 16px;
   line-height: 20px;
   color: rgba(0, 0, 0, 0.6);
-  margin: 15px auto 0;
+  margin: 15px 0 0;
 }
 
 .card__image {
@@ -34,4 +35,25 @@
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.3);
   border-radius: 20px;
+}
+
+@media screen and (min-width: 375px) and (max-width: 700px) {
+  .cards__text {
+    margin: 32px 0 20px;
+    line-height: 24px;
+  }
+
+  .cards__list {
+    margin: 0;
+  }
+
+  .card {
+    max-width: 164px;
+    max-height: 164px;
+  }
+
+  .card__image {
+    max-width: 164px;
+    max-height: 164px;
+  }
 }
