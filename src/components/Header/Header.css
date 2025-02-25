@@ -3,6 +3,16 @@
   font-family: "CabinetGrotesk-Bold";
 }
 
+@font-face {
+  src: url("../../assets/CabinetGrotesk-Medium.woff") format("woff");
+  font-family: "CabinetGrotesk-Medium";
+}
+
+@font-face {
+  src: url("../../assets/CabinetGrotesk-Regular.woff") format("woff");
+  font-family: "CabinetGrotesk-Regular";
+}
+
 .header {
   display: flex;
   align-items: center;
