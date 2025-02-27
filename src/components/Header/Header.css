@@ -41,6 +41,7 @@
   border: none;
   font-size: 20px;
   line-height: 24px;
+  cursor: pointer;
 }
 
 .header__add-clothes-btn:hover {
@@ -59,6 +60,10 @@
   font-size: 20px;
   line-height: 24.8px;
 }
+
+/* .header__avatar:hover {
+  transform: scale(1.1, 1.1);
+} */
 
 @media screen and (min-width: 375px) and (max-width: 700px) {
   .header__left {

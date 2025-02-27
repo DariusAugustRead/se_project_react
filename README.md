@@ -18,6 +18,7 @@ Figma
 -Visual User interactivity styles
 
 GitHub Link:
+https://github.com/DariusAugustRead/se_project_react
 
 ---
 

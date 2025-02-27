@@ -2,12 +2,14 @@
   position: relative;
   display: flex;
   justify-content: center;
-  width: 325px;
-  height: 328px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: rgba(0, 0, 0, 0.3);
+  width: 323px;
+  height: 326px;
   border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+  border: 1px solid rgba(0, 0, 0, 1);
 }
 
 .card__name {
