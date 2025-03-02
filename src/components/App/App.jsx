@@ -32,6 +32,13 @@ function App() {
   };
 
   useEffect(() => {
+    const localWeather = JSON.parse(localStorage.getItem("weather"));
+
+    if (localWeather) {
+      setWeatherData(localWeather);
+      return;
+    }
+
     if (coordinates && APIkey) {
       getWeather(coordinates, APIkey)
         .then((data) => {
