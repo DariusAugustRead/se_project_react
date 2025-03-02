@@ -13,7 +13,25 @@
   width: 100%;
 }
 
-@media screen and (max-width: 700px) {
+.cards__randomizer {
+  visibility: hidden;
+  color: white;
+  background-color: rgba(0, 0, 0, 1);
+  line-height: 20px;
+  border-radius: 4px;
+  padding: 12px 133px 12px 112px;
+  display: flex;
+  margin-top: 20px;
+}
+
+.cards__randomizer-arrow {
+  background: url(../../assets/randomize-arrow.svg);
+  width: 12px;
+  height: 14.78px;
+  margin-right: 8px;
+}
+
+@media screen and (min-width: 375px) and (max-width: 726px) {
   .cards__text {
     margin: 32px 0 20px;
     line-height: 24px;
@@ -21,5 +39,10 @@
 
   .cards__list {
     margin: 0;
+    gap: 15px 16px;
+  }
+
+  .cards__randomizer {
+    visibility: visible;
   }
 }

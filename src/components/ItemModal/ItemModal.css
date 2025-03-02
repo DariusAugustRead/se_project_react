@@ -40,3 +40,33 @@
   line-height: 24px;
   margin: 12px 0 0 0;
 }
+@media screen and (min-width: 375px) and (max-width: 680px) {
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal__content.modal__content_type_image {
+    width: 343px;
+    border-radius: 12px;
+  }
+
+  .modal__close-preview {
+    background: url(../../assets/close-preview_hover.png);
+    width: 20px;
+    height: 20px;
+    opacity: 100%;
+  }
+
+  .modal__close-preview:hover {
+    background: url(../../assets/close-preview_hover.png);
+    width: 20px;
+    height: 20px;
+    opacity: 50%;
+  }
+
+  .modal__footer {
+    margin: 20px auto 40px 20px;
+  }
+}

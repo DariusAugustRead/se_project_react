@@ -13,7 +13,7 @@ function Header({ handleAddClick, weatherData }) {
       <div className="header__left">
         <img className="header__logo" src={logo} />
         <p className="header__date-and-location">
-          {currentDate} , {weatherData.city}
+          {currentDate}, {weatherData.city}
         </p>
       </div>
       <button
@@ -26,6 +26,7 @@ function Header({ handleAddClick, weatherData }) {
       <div className="header__user-container">
         <p className="header__username">Terrence Tegegne</p>
         <img alt="Terrence Tegegne" className="header__avatar" src={avatar} />
+        <button type="button" className="header__responsive-menu" />
       </div>
     </header>
   );
