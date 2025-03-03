@@ -30,7 +30,7 @@ function Main({ weatherData, handleCardClick }) {
       <button className="cards__randomizer">
         <img
           src="../../assets/randomize-arrow.svg"
-          alt=""
+          alt="randomizer arrow"
           className="cards__randomizer-arrow"
         />
         Randomize

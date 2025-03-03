@@ -1,0 +1,9 @@
+.mobile__modal {
+  visibility: hidden;
+}
+
+@media screen and (min-width: 375px) and (max-width: 680px) {
+  .mobile__modal.modal_opened {
+    visibility: visible;
+  }
+}
