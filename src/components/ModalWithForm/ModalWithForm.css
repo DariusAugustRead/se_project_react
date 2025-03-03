@@ -130,6 +130,7 @@
 
   .modal__content {
     border-radius: 12px 12px 0 0;
+    align-self: flex-end;
   }
 
   .modal__title {
