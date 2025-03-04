@@ -8,7 +8,7 @@ import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import MobileModal from "../MobileModal/MobileModal";
+
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -58,8 +58,7 @@ function App() {
   return (
     <div className="page">
       <div className="page__content">
-        <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-        <MobileModal handleAddClick={handleAddClick} />
+        <Header weatherData={weatherData} />
         <Main weatherData={weatherData} handleCardClick={handleCardClick} />
         <Footer />
       </div>
