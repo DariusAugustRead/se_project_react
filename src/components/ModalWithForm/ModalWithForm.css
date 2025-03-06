@@ -36,6 +36,7 @@
 
 .modal__close:hover {
   background: transparent url(../../assets/close_hover.png);
+  transition: all 0.2s;
 }
 
 .modal__content {

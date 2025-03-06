@@ -9,23 +9,18 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 
-
 function App() {
   const [weatherData, setWeatherData] = useState({
     type: "",
     temp: { F: 999 },
     city: "",
   });
+
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
 
-  const handleMobileClick = () => {
-    setActiveModal("open-mobile");
-    setMenuVisibility(true);
-  };
-
   const handleAddClick = () => {
-    setActiveModal("add-garment");
+    setActiveModal("add-garment"); // activeModal = "add-garment"
   };
 
   const handleCardClick = (card) => {
@@ -58,14 +53,14 @@ function App() {
   return (
     <div className="page">
       <div className="page__content">
-        <Header weatherData={weatherData} />
+        <Header weatherData={weatherData} handleAddClick={handleAddClick} />
         <Main weatherData={weatherData} handleCardClick={handleCardClick} />
         <Footer />
       </div>
       <ModalWithForm
         title="New garment"
         buttonText="Add garment"
-        activeModal={activeModal}
+        isOpen={activeModal === "add-garment"}
         onClose={closeActiveModal}
       >
         <label htmlFor="name" className="modal__label">
