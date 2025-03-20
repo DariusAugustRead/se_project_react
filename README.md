@@ -2,13 +2,14 @@
 
 WTWR (What to wear) is an app that helps the user decide what they should wear based on the weather.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The header displays the user's current city and the date, a button to add more clothing options to the list and the user's name and choosen avatar. It also has a "weather card" that displays the temperature of the user's city and it's degrees in Fahrenheit. There is also a toggle switch that, in the future, will change the temperature display from Fahrenheit to Celsius.
 
 Currently, two official plugins are available:
 
 ## Tech Stack (Software and techniques used)
 
 VS Code
+-HTML
 -CSS 3
 -React
 
