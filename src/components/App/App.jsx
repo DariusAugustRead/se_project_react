@@ -7,6 +7,9 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
+import { Routes, Route } from "react-router-dom";
+import Profile from "../Profile/Profile";
+
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
 
@@ -19,7 +22,6 @@ function App() {
     isDay: false,
   });
 
-  console.log(weatherData);
   const [clothingItems, setclothingItems] = useState([]);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
@@ -130,6 +132,10 @@ function App() {
           onClose={closeActiveModal}
         />
       </div>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </CurrentTemperatureUnitContext.Provider>
   );
 }
