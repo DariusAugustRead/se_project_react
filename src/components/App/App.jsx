@@ -68,7 +68,18 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header weatherData={weatherData} handleAddClick={handleAddClick} />
-          <Main weatherData={weatherData} handleCardClick={handleCardClick} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  handleCardClick={handleCardClick}
+                />
+              }
+            />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
           <Footer />
         </div>
         <ModalWithForm
@@ -132,10 +143,6 @@ function App() {
           onClose={closeActiveModal}
         />
       </div>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
     </CurrentTemperatureUnitContext.Provider>
   );
 }

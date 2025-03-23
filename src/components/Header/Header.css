@@ -20,6 +20,10 @@
   position: relative;
 }
 
+.header:any-link {
+  text-decoration: none;
+}
+
 .header__left {
   display: flex;
   flex-direction: row;
