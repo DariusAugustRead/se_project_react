@@ -2,7 +2,7 @@
 
 WTWR (What to wear) is an app that helps the user decide what they should wear based on the weather.
 
-The header displays the user's current city and the date, a button to add more clothing options to the list and the user's name and choosen avatar. It also has a "weather card" that displays the temperature of the user's city and it's degrees in Fahrenheit. There is also a toggle switch that, in the future, will change the temperature display from Fahrenheit to Celsius.
+The header displays the user's current city and the date, a button to add more clothing options to the list and the user's name and choosen avatar. It also has a "weather card" that displays the temperature of the user's city and it's degrees in Fahrenheit. There is also a toggle switch that changes the temperature displays from Fahrenheit to Celsius when it is clicked on.
 
 Currently, two official plugins are available:
 

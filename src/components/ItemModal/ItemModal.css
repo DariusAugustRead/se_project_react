@@ -41,7 +41,7 @@
   line-height: 24px;
   margin: 12px 0 0 0;
 }
-@media screen and (min-width: 375px) and (max-width: 680px) {
+@media screen and (min-width: 375px) and (max-width: 775px) {
   .modal {
     display: flex;
     justify-content: center;

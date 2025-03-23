@@ -3,9 +3,10 @@ import "./ToggleSwitch.css";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
 
 export default function ToggleSwitch() {
-  const { handleToggleSwitchChange, currentTemperatureUnit } = useContext(
+  const { handleToggleSwitchChange } = useContext(
     CurrentTemperatureUnitContext
   );
+
   return (
     <label className="toggle-switch">
       <input

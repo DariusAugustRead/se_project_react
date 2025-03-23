@@ -31,7 +31,7 @@
   margin-right: 8px;
 }
 
-@media screen and (min-width: 375px) and (max-width: 726px) {
+@media screen and (min-width: 375px) and (max-width: 825px) {
   .cards__text {
     margin: 32px 0 20px;
     line-height: 24px;
