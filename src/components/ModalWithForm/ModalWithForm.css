@@ -55,13 +55,19 @@
   width: 100%;
 }
 
+.modal__radio-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
 .modal__label {
   margin-bottom: 8px;
 }
 
-.modal__label.modal__label_type_radio {
+.modal__label_type_radio {
   display: flex;
-  gap: 8px;
   accent-color: rgba(0, 0, 0, 1);
   cursor: pointer;
 }
@@ -93,12 +99,21 @@
   flex-direction: column;
 }
 
-.modal__radio-buttons:disabled {
+.modal__radio-input {
+  cursor: pointer;
+}
+
+.modal__radio-input:checked {
+  opacity: 1;
+  accent-color: black;
+}
+
+.modal__radio-input:not(:checked) {
   opacity: 50%;
 }
 
-.modal__radio-input {
-  cursor: pointer;
+.modal__radio-input:not(:checked) ~ .modal__label_type_radio {
+  opacity: 50%;
 }
 
 .modal__submit {
