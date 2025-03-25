@@ -10,6 +10,7 @@ import { Routes, Route } from "react-router-dom";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { defaultClothingItems } from "../../utils/constants";
+import MobileUserModal from "../MobileUserModal/MobileUserModal";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
@@ -42,6 +43,10 @@ function App() {
 
   const closeActiveModal = () => {
     setActiveModal("");
+  };
+
+  const handleMobileUserModal = () => {
+    setActiveModal("mobile-modal");
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
@@ -77,19 +82,26 @@ function App() {
     >
       <div className="page">
         <div className="page__content">
-          <Header weatherData={weatherData} handleAddClick={handleAddClick} />
+          <Header
+            weatherData={weatherData}
+            handleAddClick={handleAddClick}
+            handleMobileUserModal={handleMobileUserModal}
+          />
           <Routes>
             <Route
               path="/"
               element={
                 <Main
                   weatherData={weatherData}
-                  handleCardClick={handleCardClick}
+                  onClick={handleCardClick}
                   clothingItems={clothingItems}
                 />
               }
             />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={<Profile onCardClick={handleCardClick} />}
+            />
           </Routes>
           <Footer />
         </div>
@@ -101,6 +113,10 @@ function App() {
         <ItemModal
           activeModal={activeModal}
           card={selectedCard}
+          onClose={closeActiveModal}
+        />
+        <MobileUserModal
+          isOpen={activeModal === "mobile-modal"}
           onClose={closeActiveModal}
         />
       </div>

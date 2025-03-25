@@ -4,7 +4,7 @@ import avatar from "../../assets/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom";
 
-function Header({ handleAddClick, weatherData, handleMobileClick }) {
+function Header({ handleAddClick, weatherData, handleMobileUserModal }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -31,10 +31,18 @@ function Header({ handleAddClick, weatherData, handleMobileClick }) {
       <Link to="/profile" className="header__link">
         <div className="header__user-container">
           <p className="header__username">Terrence Tegegne</p>
-          <img alt="Terrence Tegegne" className="header__avatar" src={avatar} />
+          <img
+            alt="Terrence Tegegne"
+            className="header__avatar"
+            src={avatar || avatarDefault}
+          />
         </div>
       </Link>
-      <button type="button" className="header__responsive-menu"></button>
+      <button
+        type="button"
+        className="header__responsive-menu"
+        onClick={handleMobileUserModal}
+      />
     </header>
   );
 }
