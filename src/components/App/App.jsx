@@ -11,6 +11,7 @@ import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { defaultClothingItems } from "../../utils/constants";
 import MobileUserModal from "../MobileUserModal/MobileUserModal";
+import { getItems } from "../../utils/api.js";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
@@ -76,6 +77,15 @@ function App() {
     }
   }, [coordinates, APIkey]);
 
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        console.log(data);
+        setClothingItems(data);
+      })
+      .catch(console.error);
+  }, []);
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -91,6 +101,7 @@ function App() {
             <Route
               path="/"
               element={
+                // Data to cards here
                 <Main
                   weatherData={weatherData}
                   onClick={handleCardClick}
@@ -100,6 +111,7 @@ function App() {
             />
             <Route
               path="/profile"
+              // ...and here
               element={<Profile onCardClick={handleCardClick} />}
             />
           </Routes>
@@ -118,6 +130,7 @@ function App() {
         <MobileUserModal
           isOpen={activeModal === "mobile-modal"}
           onClose={closeActiveModal}
+          onClick={handleMobileUserModal}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

@@ -1,7 +1,7 @@
 import "./MobileUserModal.css";
 import avatar from "../../assets/avatar.svg";
 
-function MobileUserModal({ activeModal, isOpen, onClose }) {
+function MobileUserModal({ activeModal, isOpen, onClose, handleAddClick }) {
   return (
     <div className={`modal ${isOpen === "mobile-modal" ? "modal_opened" : ""}`}>
       <div className="mobile-header__user-container">
