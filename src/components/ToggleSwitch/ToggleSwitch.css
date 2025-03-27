@@ -70,3 +70,9 @@
   left: 24px;
   width: 30px;
 }
+
+@media screen and (max-width: 775px) {
+  .toggle-switch_type_desktop {
+    visibility: hidden;
+  }
+}

@@ -20,7 +20,10 @@ function Header({ handleAddClick, weatherData, handleMobileUserModal }) {
           {currentDate}, {weatherData.city}
         </p>
       </div>
-      <ToggleSwitch />
+
+      <div className="header__toggle-switch">
+        <ToggleSwitch />
+      </div>
       <button
         className="header__add-clothes-btn"
         type="button"

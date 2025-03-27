@@ -14,3 +14,47 @@
 .modal_opened {
   visibility: visible;
 }
+
+.mobile-header__user-container {
+  position: relative;
+  background-color: #fff;
+  width: 343px;
+  height: 240px;
+  display: block;
+  align-self: flex-start;
+  top: 18px;
+  border-radius: 10px;
+  align-content: center;
+}
+
+.mobile-header__close-mobile {
+  position: absolute;
+  background: transparent url(../../assets/close-preview_hover.png);
+  opacity: 100%;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+  border: none;
+  padding: 0;
+  top: 11px;
+  right: 11.39px;
+}
+
+.mobile-header__user-info {
+  display: flex;
+  justify-content: center;
+}
+
+.mobile-header__avatar {
+  margin-left: 12px;
+}
+
+.mobile-header__add-clothes-btn {
+  display: flex;
+  justify-self: center;
+}
+
+.mobile-header__toggle-switch {
+  display: flex;
+  justify-self: center;
+}
