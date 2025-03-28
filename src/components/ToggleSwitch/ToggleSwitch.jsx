@@ -9,7 +9,9 @@ export default function ToggleSwitch({ mobile = false }) {
 
   return (
     <div
-      className={`toggle-switch ${mobile ? "toggle-switch_type_mobile" : ""}`}
+      className={`toggle-switch ${
+        mobile ? "toggle-switch_type_mobile" : "toggle-switch_type_desktop"
+      }`}
     >
       <input
         onChange={handleToggleSwitchChange}

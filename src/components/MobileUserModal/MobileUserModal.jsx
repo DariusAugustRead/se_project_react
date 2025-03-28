@@ -15,7 +15,7 @@ function MobileUserModal({ isOpen, onClose, handleAddClick }) {
           <img
             alt="Terrence Tegegne"
             className="mobile-header__avatar"
-            src={avatar || avatarDefault}
+            src={avatar}
           />
         </div>
         <button
