@@ -15,7 +15,7 @@ function ClothesSection({ onCardClick }) {
           <ItemCard
             key={filteredItem._id}
             item={filteredItem}
-            onCardClick={onCardClick}
+            onClick={onCardClick}
           />
         ))}
       </ul>
