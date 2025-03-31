@@ -17,6 +17,10 @@
 }
 
 .toggle-switch__checkbox {
+  width: 56px;
+  height: 28px;
+  z-index: 2;
+  position: relative;
   opacity: 0;
 }
 

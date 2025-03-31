@@ -1,5 +1,6 @@
 import avatar from "../../assets/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import "./MobileUserModal.css";
 
 function MobileUserModal({ isOpen, onClose, handleAddClick }) {
   return (
