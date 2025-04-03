@@ -103,15 +103,15 @@ function App() {
                 // Data to cards here
                 <Main
                   weatherData={weatherData}
-                  onClick={handleCardClick}
+                  handleCardClick={handleCardClick}
                   clothingItems={clothingItems}
                 />
               }
             />
             <Route
               path="/profile"
-              // ...and here
               element={<Profile onCardClick={handleCardClick} />}
+              clothingItems={clothingItems}
             />
           </Routes>
           <Footer />
