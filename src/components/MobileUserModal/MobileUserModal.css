@@ -76,3 +76,6 @@
   justify-self: center;
   margin: 24px 0 40px;
 }
+
+@media screen and (min-width: 375px) and (max-width: 775px) {
+}

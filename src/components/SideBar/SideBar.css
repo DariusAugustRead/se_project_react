@@ -1,6 +1,8 @@
 .sidebar {
   display: flex;
   gap: 16px;
+  margin-right: 116px;
+  font-size: 20px;
 }
 
 .sidebar__avatar {

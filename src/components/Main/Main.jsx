@@ -26,14 +26,14 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
             ))}
         </ul>
       </section>
-      <button className="cards__randomizer">
+      {/* <button className="cards__randomizer">
         <img
           src="../../assets/randomize-arrow.svg"
           alt="randomizer arrow"
           className="cards__randomizer-arrow"
         />
         Randomize
-      </button>
+      </button> */}
     </main>
   );
 }

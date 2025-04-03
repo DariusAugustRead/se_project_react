@@ -5,4 +5,15 @@
   margin: 85px 0 24px 0;
   font-family: "CabinetGrotesk-Medium";
   font-weight: 500;
+  height: 20px;
+}
+
+.developer__name {
+  margin: 0;
+}
+
+@media screen and (min-width: 375px) and (max-width: 775px) {
+  .footer {
+    margin: 40px 0 20px;
+  }
 }
