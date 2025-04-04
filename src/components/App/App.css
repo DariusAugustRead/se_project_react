@@ -2,11 +2,9 @@
   background-color: rgba(243, 243, 243, 1);
   font-family: "CabinetGrotesk-Bold";
   font-weight: 700;
-  /* max-height: 822px; */
 }
 
 .page__content {
-  max-width: 1360px;
   margin: 0 auto;
   padding: 0 40px;
   display: block;
@@ -15,6 +13,5 @@
 @media screen and (min-width: 375px) and (max-width: 825px) {
   .page__content {
     padding: 0 16px;
-    max-width: 375px;
   }
 }

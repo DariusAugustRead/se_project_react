@@ -18,5 +18,6 @@ function ItemModal({ activeModal, onClose, card }) {
     </div>
   );
 }
+// console.log(card);
 
 export default ItemModal;

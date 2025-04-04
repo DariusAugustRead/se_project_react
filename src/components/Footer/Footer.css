@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 85px 0 24px 0;
+  padding: 85px 0 24px 0;
   font-family: "CabinetGrotesk-Medium";
   font-weight: 500;
   height: 20px;
@@ -12,8 +12,12 @@
   margin: 0;
 }
 
+.developer__date {
+  margin: 0;
+}
+
 @media screen and (min-width: 375px) and (max-width: 775px) {
   .footer {
-    margin: 40px 0 20px;
+    padding: 40px 0 20px;
   }
 }

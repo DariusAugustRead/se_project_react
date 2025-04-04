@@ -110,7 +110,7 @@
   }
 
   .header__add-clothes-btn {
-    visibility: hidden;
+    display: none;
   }
 
   .header__user-container {

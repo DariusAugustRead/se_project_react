@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard";
-import { defaultClothingItems } from "../../utils/constants";
 
 function ClothesSection({ onCardClick, clothingItems }) {
   return (
@@ -11,7 +10,7 @@ function ClothesSection({ onCardClick, clothingItems }) {
         <button className="clothes-section__button">+ Add new</button>
       </div>
       <ul className="clothes-section__items">
-        {defaultClothingItems.map((filteredItem) => (
+        {clothingItems.map((filteredItem) => (
           <ItemCard
             key={filteredItem._id}
             item={filteredItem}

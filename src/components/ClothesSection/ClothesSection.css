@@ -18,6 +18,11 @@
   padding: 0;
 }
 
+.clothes-section__button:hover {
+  opacity: 1;
+  transition: all 0.5s;
+}
+
 .clothes-section__title {
   margin: 0;
 }
