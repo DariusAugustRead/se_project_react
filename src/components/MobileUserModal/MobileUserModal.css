@@ -77,8 +77,8 @@
   margin: 24px 0 40px;
 }
 
-@media screen and (min-width: 775px) {
-  .modal_opened {
+@media screen and (min-width: 776px) {
+  .mobile-header__user-container {
     visibility: hidden;
   }
 }
