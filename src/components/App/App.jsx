@@ -27,7 +27,11 @@ function App() {
 
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [activeModal, setActiveModal] = useState("");
-  const [selectedCard, setSelectedCard] = useState({});
+  const [selectedCard, setSelectedCard] = useState({
+    imageUrl: "",
+    name: "",
+    weather: "",
+  });
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
   const handleToggleSwitchChange = () => {
@@ -41,6 +45,8 @@ function App() {
     setActiveModal("preview");
     setSelectedCard(card);
   };
+
+  // console.log(card);
 
   const closeActiveModal = () => {
     setActiveModal("");
@@ -100,7 +106,6 @@ function App() {
             <Route
               path="/"
               element={
-                // Data to cards here
                 <Main
                   weatherData={weatherData}
                   handleCardClick={handleCardClick}
@@ -125,11 +130,13 @@ function App() {
           isOpen={activeModal === "add-garment"}
           onAddItemModalSubmit={handleAddItemModalSubmit}
         />
-        <ItemModal
-          activeModal={activeModal}
-          card={selectedCard}
-          onClose={closeActiveModal}
-        />
+        {selectedCard && (
+          <ItemModal
+            activeModal={activeModal}
+            onClose={closeActiveModal}
+            card={selectedCard}
+          />
+        )}
         <MobileUserModal
           isOpen={activeModal === "mobile-modal"}
           onClose={closeActiveModal}

@@ -78,6 +78,10 @@
 }
 
 @media screen and (min-width: 776px) {
+  .modal_mobile {
+    visibility: hidden;
+  }
+
   .mobile-header__user-container {
     visibility: hidden;
   }

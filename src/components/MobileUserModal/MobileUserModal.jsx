@@ -4,7 +4,7 @@ import "./MobileUserModal.css";
 
 function MobileUserModal({ isOpen, onClose, handleAddClick }) {
   return (
-    <div className={`modal ${isOpen && "modal_opened"}`}>
+    <div className={`modal ${isOpen && "modal_opened"} modal_mobile`}>
       <div className="mobile-header__user-container">
         <button
           type="button"
