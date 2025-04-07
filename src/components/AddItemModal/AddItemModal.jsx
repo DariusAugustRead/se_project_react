@@ -30,7 +30,7 @@ export default function AddItemModal({
     setName("");
     setImageUrl("");
     setWeather("");
-    console.log("submitted");
+    // console.log("submitted");
   };
 
   return (

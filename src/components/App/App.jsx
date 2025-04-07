@@ -11,7 +11,7 @@ import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { defaultClothingItems } from "../../utils/constants";
 import MobileUserModal from "../MobileUserModal/MobileUserModal";
-import { getItems } from "../../utils/api.js";
+import { getItems, postItems, deleteItems } from "../../utils/api.js";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
@@ -46,8 +46,6 @@ function App() {
     setSelectedCard(card);
   };
 
-  // console.log(card);
-
   const closeActiveModal = () => {
     setActiveModal("");
   };
@@ -57,13 +55,18 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    // const newId = Math.max(...clothingItems.map((item) => item._id)) + 1;
+    const newId = Math.max(...clothingItems.map((item) => item._id)) + 1;
     setClothingItems((prevItems) => [
-      { name, link: imageUrl, weather },
+      { name, link: imageUrl, weather, _id: newId },
       ...prevItems,
     ]);
     closeActiveModal();
   };
+
+  // const handleCardDelete = (card) => {
+  //   setSelectedCard({ imageUrl: "", name: "", weather: "" });
+  //   closeActiveModal();
+  // };
 
   useEffect(() => {
     const localWeather = JSON.parse(localStorage.getItem("weather"));
@@ -135,6 +138,7 @@ function App() {
             activeModal={activeModal}
             onClose={closeActiveModal}
             card={selectedCard}
+            onClick={deleteItems(selectedCard)}
           />
         )}
         <MobileUserModal
