@@ -63,10 +63,12 @@ function App() {
     closeActiveModal();
   };
 
-  // const handleCardDelete = (card) => {
-  //   setSelectedCard({ imageUrl: "", name: "", weather: "" });
-  //   closeActiveModal();
-  // };
+  const handleCardDelete = () => {
+    deleteItems(selectedCard._id).then((deleteItems) => {
+      const filteredCard = clothingItems.filter((card) => card._id).map();
+    });
+    closeActiveModal();
+  };
 
   useEffect(() => {
     const localWeather = JSON.parse(localStorage.getItem("weather"));
@@ -138,7 +140,7 @@ function App() {
             activeModal={activeModal}
             onClose={closeActiveModal}
             card={selectedCard}
-            onClick={deleteItems(selectedCard)}
+            onClick={handleCardDelete}
           />
         )}
         <MobileUserModal

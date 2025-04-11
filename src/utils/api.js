@@ -22,11 +22,11 @@ function postItems() {
   }).then(handleServerResponse);
 }
 
-function deleteItems() {
-  return fetch(`${baseUrl}/items/_id`, {
+function deleteItems(_id) {
+  return fetch(`${baseUrl}/items/${_id}`, {
     method: "DELETE",
     headers: {
-      "Content-Type": "application / json",
+      "Content-Type": "application/json",
     },
   }).then(handleServerResponse);
 }
