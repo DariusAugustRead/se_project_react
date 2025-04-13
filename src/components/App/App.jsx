@@ -57,15 +57,19 @@ function App() {
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     const newId = Math.max(...clothingItems.map((item) => item._id)) + 1;
     setClothingItems((prevItems) => [
-      { name, link: imageUrl, weather, _id: newId },
+      { name, imageUrl, weather, _id: newId },
       ...prevItems,
     ]);
     closeActiveModal();
   };
 
   const handleCardDelete = () => {
-    deleteItems(selectedCard._id).then((deleteItems) => {
-      const filteredCard = clothingItems.filter((card) => card._id).map();
+    deleteItems(selectedCard._id).then(() => {
+      setClothingItems(
+        clothingItems.filter((item) => {
+          return item._id !== selectedCard._id;
+        })
+      );
     });
     closeActiveModal();
   };
@@ -124,6 +128,7 @@ function App() {
                 <Profile
                   onCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  handleAddClick={handleAddClick}
                 />
               }
             />
