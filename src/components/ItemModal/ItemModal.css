@@ -58,7 +58,7 @@
   opacity: 50%;
 }
 
-@media screen and (min-width: 375px) and (max-width: 775px) {
+@media screen and (max-width: 775px) {
   .modal {
     display: flex;
     justify-content: center;

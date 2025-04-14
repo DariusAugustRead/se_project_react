@@ -1,11 +1,87 @@
 .sidebar {
   display: flex;
   gap: 16px;
-  margin-right: 116px;
   font-size: 20px;
+}
+
+.sidebar__username {
+  width: 157px;
+}
+
+.sidebar__user_info-display {
+  display: flex;
+  flex-direction: row;
 }
 
 .sidebar__avatar {
   width: 56px;
   height: 56px;
+}
+
+.sidebar__user_info-change {
+  display: flex;
+}
+
+.sidebar__change_profile {
+  visibility: hidden;
+}
+
+.sidebar__log-out {
+  visibility: hidden;
+}
+
+@media screen and (max-width: 775px) {
+  .sidebar {
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-style: solid none;
+    min-width: 343px;
+    padding: 20px 0 20px 0;
+  }
+
+  .sidebar__username {
+    width: 188px;
+    font-size: 24px;
+    margin: 0 0 12px 0;
+    flex-wrap: nowrap;
+  }
+
+  .sidebar__user_info-display {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .sidebar__user_info-change {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 0 76px;
+    justify-content: flex-start;
+    width: 267px;
+    gap: 8px;
+  }
+
+  .sidebar__change_profile {
+    text-align: start;
+    font-weight: 500;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.6);
+    border: none;
+    background: transparent;
+    visibility: visible;
+    padding: 0;
+    font-family: "CabinetGrotesk-Medium";
+  }
+
+  .sidebar__log-out {
+    text-align: start;
+    font-weight: 500;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.6);
+    border: none;
+    background: transparent;
+    visibility: visible;
+    padding: 0;
+    font-family: "CabinetGrotesk-Medium";
+  }
 }

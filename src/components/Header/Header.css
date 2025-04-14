@@ -1,16 +1,19 @@
 @font-face {
   src: url("../../assets/CabinetGrotesk-Bold.woff") format("woff");
   font-family: "CabinetGrotesk-Bold";
+  font-weight: 700;
 }
 
 @font-face {
   src: url("../../assets/CabinetGrotesk-Medium.woff") format("woff");
   font-family: "CabinetGrotesk-Medium";
+  font-weight: 500;
 }
 
 @font-face {
   src: url("../../assets/CabinetGrotesk-Regular.woff") format("woff");
   font-family: "CabinetGrotesk-Regular";
+  font-weight: 400;
 }
 
 .header {
@@ -91,22 +94,32 @@
   outline: 1px solid black;
 }
 
-@media screen and (min-width: 375px) and (max-width: 775px) {
+@media screen and (max-width: 775px) {
   .header {
     padding: 18px 0 16px;
+    display: block;
+  }
+
+  .header__link {
+    display: none;
   }
 
   .header__logo {
     width: 89px;
     height: 40px;
+    margin: 0 12px 0 0;
+  }
+
+  .header__toggle-switch {
+    display: none;
   }
 
   .header__left {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .header__date-and-location {
-    margin-top: 32px;
+    margin-top: 0;
   }
 
   .header__add-clothes-btn {
@@ -119,5 +132,6 @@
 
   .header__responsive-menu {
     visibility: visible;
+    right: 0px;
   }
 }

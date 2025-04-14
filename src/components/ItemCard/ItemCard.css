@@ -30,10 +30,14 @@
   border-radius: 20px;
 }
 
-@media screen and (min-width: 375px) and (max-width: 825px) {
+@media screen and (max-width: 775px) {
   .card {
     width: 162px;
     height: 162px;
+  }
+
+  .card__name {
+    margin: 7px 0 0;
   }
 
   .card__image {
