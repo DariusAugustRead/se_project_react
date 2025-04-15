@@ -2,7 +2,11 @@
   display: flex;
 }
 
-@media screen and (max-width: 775px) {
+.profile__sidebar {
+  margin: 0 116px 0 0;
+}
+
+@media screen and (max-width: 887px) {
   .profile {
     display: block;
   }

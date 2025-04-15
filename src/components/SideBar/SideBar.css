@@ -6,6 +6,7 @@
 
 .sidebar__username {
   width: 157px;
+  margin: 16px 0 15px 16px;
 }
 
 .sidebar__user_info-display {
@@ -20,6 +21,7 @@
 
 .sidebar__user_info-change {
   display: flex;
+  display: none;
 }
 
 .sidebar__change_profile {

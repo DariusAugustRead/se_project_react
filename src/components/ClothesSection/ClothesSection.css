@@ -4,7 +4,7 @@
 
 .clothes-section__header {
   display: flex;
-  margin: 35px 0 0;
+  margin: 16px 0 0;
 }
 
 .clothes-section__button {
@@ -29,7 +29,6 @@
 
 .clothes-section__items {
   width: 100vw;
-  height: 676px;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -48,7 +47,6 @@
   }
 
   .clothes-section__items {
-    height: auto;
     gap: 15px;
   }
 }
