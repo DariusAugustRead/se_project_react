@@ -9,9 +9,7 @@ function getItems() {
     headers: {
       "Content-Type": "application/json",
     },
-  })
-    .then(handleServerResponse)
-    .catch(console.error());
+  }).then(handleServerResponse);
 }
 
 function postItems({ name, weather, imageUrl }) {

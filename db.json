@@ -67,16 +67,10 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
     },
     {
-      "name": "socks",
+      "name": "Socks",
       "weather": "warm",
       "imageUrl": "https://th.bing.com/th/id/OIP.H2Plb2riRHPHfv6JYJTOZwHaHa?rs=1&pid=ImgDetMain",
-      "_id": 17
-    },
-    {
-      "name": "Mountains",
-      "weather": "warm",
-      "imageUrl": "https://th.bing.com/th/id/OIP.H2Plb2riRHPHfv6JYJTOZwHaHa?rs=1&pid=ImgDetMain",
-      "_id": 19
+      "_id": 21
     }
   ]
 }
