@@ -74,7 +74,7 @@
   width: 30px;
 }
 
-@media screen and (max-width: 775px) {
+@media screen and (max-width: 887px) {
   .toggle-switch_type_desktop {
     visibility: hidden;
   }

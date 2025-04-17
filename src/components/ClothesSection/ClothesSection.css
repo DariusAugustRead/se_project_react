@@ -20,7 +20,7 @@
 
 .clothes-section__button:hover {
   opacity: 1;
-  transition: all 0.5s;
+  transition: opacity 0.5s;
 }
 
 .clothes-section__title {
@@ -28,7 +28,6 @@
 }
 
 .clothes-section__items {
-  width: 100vw;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -36,7 +35,7 @@
   list-style-type: none;
 }
 
-@media screen and (max-width: 775px) {
+@media screen and (max-width: 887px) {
   .clothes-section__header {
     justify-content: space-between;
     gap: 0px;

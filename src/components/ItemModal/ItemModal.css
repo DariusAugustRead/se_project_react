@@ -14,7 +14,7 @@
 .modal__close-preview:hover {
   background: url(../../assets/close_hover.png);
   background-repeat: no-repeat;
-  transition: all 0.2s;
+  transition: background 0.2s;
 }
 
 .modal__image {
@@ -58,7 +58,7 @@
   opacity: 50%;
 }
 
-@media screen and (max-width: 775px) {
+@media screen and (max-width: 887px) {
   .modal {
     display: flex;
     justify-content: center;

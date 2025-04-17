@@ -55,12 +55,16 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    const newId = Math.max(...clothingItems.map((item) => item._id)) + 1;
-    setClothingItems((prevItems) => [
-      { name, imageUrl, weather, _id: newId },
-      ...prevItems,
-    ]);
-    closeActiveModal();
+    postItems({ name, weather, imageUrl })
+      .then((res) => {
+        console.log(res);
+
+        setClothingItems((prevItems) => [
+          { name, imageUrl, weather, _id: res._id },
+          ...prevItems,
+        ]);
+      })
+      .then(closeActiveModal());
   };
 
   const handleCardDelete = () => {

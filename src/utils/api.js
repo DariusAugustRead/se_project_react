@@ -9,17 +9,21 @@ function getItems() {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(handleServerResponse);
+  })
+    .then(handleServerResponse)
+    .catch(console.error());
 }
 
-function postItems() {
+function postItems({ name, weather, imageUrl }) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name, weather, imageUrl }),
-  }).then(handleServerResponse);
+  })
+    .then(handleServerResponse)
+    .catch(console.error());
 }
 
 function deleteItems(id) {
@@ -28,7 +32,9 @@ function deleteItems(id) {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(handleServerResponse);
+  })
+    .then(handleServerResponse)
+    .catch(console.error());
 }
 
 export { getItems, postItems, deleteItems };
