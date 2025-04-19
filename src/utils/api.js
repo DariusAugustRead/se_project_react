@@ -1,6 +1,6 @@
 const baseUrl = "http://localhost:3001";
 
-const handleServerResponse = (res) => {
+export const handleServerResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
 
@@ -19,9 +19,7 @@ function postItems({ name, weather, imageUrl }) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name, weather, imageUrl }),
-  })
-    .then(handleServerResponse)
-    .catch(console.error());
+  }).then(handleServerResponse);
 }
 
 function deleteItems(id) {
@@ -30,9 +28,7 @@ function deleteItems(id) {
     headers: {
       "Content-Type": "application/json",
     },
-  })
-    .then(handleServerResponse)
-    .catch(console.error());
+  }).then(handleServerResponse);
 }
 
 export { getItems, postItems, deleteItems };

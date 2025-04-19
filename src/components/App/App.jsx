@@ -62,18 +62,20 @@ function App() {
           ...prevItems,
         ]);
       })
-      .then(closeActiveModal());
+      .then(closeActiveModal);
   };
 
   const handleCardDelete = () => {
-    deleteItems(selectedCard._id).then(() => {
-      setClothingItems(
-        clothingItems.filter((item) => {
-          return item._id !== selectedCard._id;
-        })
-      );
-    });
-    closeActiveModal();
+    deleteItems(selectedCard._id)
+      .then(() => {
+        setClothingItems(
+          clothingItems.filter((item) => {
+            return item._id !== selectedCard._id;
+          })
+        );
+      })
+      .then(closeActiveModal)
+      .catch(console.error);
   };
 
   useEffect(() => {

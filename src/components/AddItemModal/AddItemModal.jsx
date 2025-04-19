@@ -26,11 +26,13 @@ export default function AddItemModal({
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onAddItemModalSubmit({ name, imageUrl, weather }).then(() => {
-      setName("");
-      setImageUrl("");
-      setWeather("");
-    });
+    onAddItemModalSubmit({ name, imageUrl, weather })
+      .then(() => {
+        setName("");
+        setImageUrl("");
+        setWeather("");
+      })
+      .catch(console.error);
   };
 
   return (
