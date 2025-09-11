@@ -31,4 +31,15 @@ function deleteItems(id) {
   }).then(handleServerResponse);
 }
 
-export { getItems, postItems, deleteItems };
+function updateProfile(name, avatar, token) {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  });
+}
+
+export { getItems, postItems, deleteItems, updateProfile };

@@ -21,7 +21,12 @@ Mock Api Server
 -Terminal command: json-server --watch db.json --id \_id --port 3001
 
 GitHub Link:
+
+Frontend:
 https://github.com/DariusAugustRead/se_project_react
+
+Backend:
+https://github.com/DariusAugustRead/se_project_express
 
 ---
 

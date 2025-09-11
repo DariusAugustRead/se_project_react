@@ -11,10 +11,22 @@ import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { defaultClothingItems } from "../../utils/constants";
 import MobileUserModal from "../MobileUserModal/MobileUserModal";
-import { getItems, postItems, deleteItems } from "../../utils/api.js";
+import {
+  getItems,
+  postItems,
+  deleteItems,
+  updateProfile,
+} from "../../utils/api.js";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
+
+import ProtectedRoute from "../ProtectedRoutes.jsx";
+
+import RegisterModal from "../RegisterModal/RegisterModal.jsx";
+import { register, login, checkToken } from "../../utils/auth.js";
+
+import { updateProfile } from "../../utils/api.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -33,6 +45,9 @@ function App() {
     weather: "",
   });
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+
+  const [userData, setUserData] = useState({ username: "", email: "" });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -99,10 +114,91 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
-        setClothingItems(data);
+        if (data == []) {
+          setClothingItems(data);
+        }
       })
       .catch(console.error);
   }, []);
+
+  const handleRegistration = ({ name, avatar, email, password }) => {
+    register(name, avatar, email, password)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Registration failed");
+      })
+      .then((data) => {
+        closeActiveModal();
+        handleLogin({ email, password });
+      })
+      .catch((err) => {
+        console.error("Registration error: ", err);
+      });
+  };
+
+  const handleLogin = ({ email, password }) => {
+    login(email, password)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Login failed");
+      })
+      .then((data) => {
+        localStorage.setItem("jwt", data.token);
+
+        setIsLoggedIn(true);
+        setUserData(data.user);
+        closeActiveModal();
+      })
+      .catch((err) => {
+        console.error("Login error: ", err);
+      });
+
+    useEffect(() => {
+      const token = localStorage.getItem("jwt");
+
+      if (token) {
+        checkToken(token)
+          .then((res) => {
+            if (res.ok) {
+              return res.json();
+            }
+            throw new Error("Token is invalid");
+          })
+          .then((userData) => {
+            setUserData(userData);
+            setIsLoggedIn(true);
+          })
+          .catch((err) => {
+            localStorage.removeItem("jwt");
+            console.error("Token validation failed: ", err);
+          });
+      }
+    }, []);
+  };
+
+  const handleProtectedUpdate = (name, avatar) => {
+    const token = localStorage.getItem("jwt");
+
+    updateProfile(name, avatar)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("No response from server");
+      })
+      .then((userData) => {
+        setUserData(userData);
+        setIsLoggedIn(true);
+      })
+      .catch((err) => {
+        localStorage.removeItem("jwt");
+        console.error("Token validation failed: ", err);
+      });
+  };
 
   return (
     <CurrentTemperatureUnitContext.Provider
@@ -129,11 +225,13 @@ function App() {
             <Route
               path="/profile"
               element={
-                <Profile
-                  onCardClick={handleCardClick}
-                  clothingItems={clothingItems}
-                  handleAddClick={handleAddClick}
-                />
+                <ProtectedRoute>
+                  <Profile
+                    onCardClick={handleCardClick}
+                    clothingItems={clothingItems}
+                    handleAddClick={handleAddClick}
+                  />
+                </ProtectedRoute>
               }
             />
           </Routes>
@@ -156,6 +254,11 @@ function App() {
           isOpen={activeModal === "mobile-modal"}
           onClose={closeActiveModal}
           onClick={handleMobileUserModal}
+        />
+        <RegisterModal
+          isOpen={activeModal === "register"}
+          onClose={closeActiveModal}
+          onClick={handleRegistration}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>
