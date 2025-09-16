@@ -2,9 +2,26 @@ import { useState } from "react";
 import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-export default function LoginModal() {
+export default function LoginModal({
+  email,
+  password,
+  isOpen,
+  onClose,
+  onClick,
+  activeModal,
+  setActiveModal,
+}) {
   return (
-    <ModalWithForm title="Log In" buttonText="Log In">
+    <ModalWithForm
+      title="Log In"
+      buttonText="Log In"
+      swapText="or Register"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={onClick}
+      activeModal={activeModal}
+      setActiveModal={setActiveModal}
+    >
       <label htmlFor="email" className="modal__label">
         Email
       </label>
@@ -20,12 +37,12 @@ export default function LoginModal() {
         Password
       </label>
       <input
-        type="email"
+        type="text"
         className="modal__input"
         id="name"
-        placeholder="Email"
+        placeholder="Password"
         required
-        value={email}
+        value={password}
       />
     </ModalWithForm>
   );

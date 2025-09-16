@@ -3,11 +3,30 @@ import "./RegisterModal.css";
 
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-export default function RegisterModal() {
+export default function RegisterModal({
+  name,
+  email,
+  password,
+  avatarURL,
+  isOpen,
+  onClose,
+  onClick,
+  activeModal,
+  setActiveModal,
+}) {
   return (
-    <ModalWithForm title="Sign In" buttonText="Next">
+    <ModalWithForm
+      title="Sign Up"
+      buttonText="Next"
+      swapText="or Log in"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={onClick}
+      activeModal={activeModal}
+      setActiveModal={setActiveModal}
+    >
       <label htmlFor="email" className="modal__label">
-        Email{" "}
+        Email*{" "}
       </label>
       <input
         type="email"
@@ -18,7 +37,7 @@ export default function RegisterModal() {
         value={email}
       />
       <label htmlFor="password" className="modal__label">
-        Password{" "}
+        Password*{" "}
       </label>
       <input
         type="email"
@@ -26,10 +45,10 @@ export default function RegisterModal() {
         id="name"
         placeholder="Email"
         required
-        value={email}
+        value={password}
       />
       <label htmlFor="name" className="modal__label">
-        Name{" "}
+        Name*{" "}
       </label>
       <input
         type="name"
@@ -40,7 +59,7 @@ export default function RegisterModal() {
         value={name}
       />
       <label htmlFor="avatar-url" className="modal__label">
-        Avatar URL{" "}
+        Avatar URL*{" "}
       </label>
       <input
         type="avatar"
@@ -48,7 +67,7 @@ export default function RegisterModal() {
         id="name"
         placeholder="Avatar URL"
         required
-        value={avatar - url}
+        value={avatarURL}
       />
     </ModalWithForm>
   );

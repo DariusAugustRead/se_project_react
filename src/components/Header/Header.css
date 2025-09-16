@@ -49,6 +49,10 @@
   margin-left: auto;
 }
 
+.header__user-info {
+  display: flex;
+}
+
 .header__add-clothes-btn {
   margin: 0 20px 0 0;
   padding: 0;
@@ -74,6 +78,37 @@
   margin: 0;
   font-size: 20px;
   line-height: 24.8px;
+}
+
+.header__avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 18px;
+}
+
+.header__avatar-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.header__auth-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+div.header__auth-buttons button {
+  border: none;
+  font-size: 20px;
+  padding: 0;
 }
 
 .header__responsive-menu {

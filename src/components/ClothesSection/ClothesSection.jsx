@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard";
 
-function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
+function ClothesSection({ onCardClick, clothingItems, handleAddClick, isOwn }) {
   return (
     <div className="clothes-section">
       <div className="clothes-section__header">
@@ -15,15 +15,17 @@ function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
           + Add new
         </button>
       </div>
-      <ul className="clothes-section__items">
-        {clothingItems.map((filteredItem) => (
-          <ItemCard
-            key={filteredItem._id}
-            item={filteredItem}
-            onCardClick={onCardClick}
-          />
-        ))}
-      </ul>
+      {isOwn && (
+        <ul className="clothes-section__items">
+          {clothingItems.map((filteredItem) => (
+            <ItemCard
+              key={filteredItem._id}
+              item={filteredItem}
+              onCardClick={onCardClick}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

@@ -4,7 +4,18 @@ import avatar from "../../assets/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom";
 
-function Header({ handleAddClick, weatherData, handleMobileUserModal }) {
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+
+function Header({
+  handleAddClick,
+  weatherData,
+  handleMobileUserModal,
+  isLoggedIn,
+  setActiveModal,
+}) {
+  const currentUser = useContext(CurrentUserContext);
+
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -24,28 +35,47 @@ function Header({ handleAddClick, weatherData, handleMobileUserModal }) {
       <div className="header__toggle-switch">
         <ToggleSwitch />
       </div>
-      <button
-        className="header__add-clothes-btn"
-        type="button"
-        onClick={handleAddClick}
-      >
-        + Add clothes
-      </button>
-      <Link to="/profile" className="header__link">
-        <div className="header__user-container">
-          <p className="header__username">Terrence Tegegne</p>
-          <img
-            alt="Terrence Tegegne"
-            className="header__avatar"
-            src={avatar || avatarDefault}
+
+      {isLoggedIn ? (
+        <div className="header__user-info">
+          <button
+            className="header__add-clothes-btn"
+            type="button"
+            onClick={handleAddClick}
+          >
+            + Add clothes
+          </button>
+          <Link to="/profile" className="header__link">
+            <div className="header__user-container">
+              <p className="header__username">Stephen Smith</p>
+              <div className="header__avatar">
+                {currentUser?.avatar ? (
+                  <img
+                    src={currentUser.avatar}
+                    alt={currentUser.name}
+                    className="header__avatar-image"
+                  />
+                ) : (
+                  <div className="header__avatar-placeholder">
+                    {currentUser?.name?.[0]?.toUpperCase()}
+                  </div>
+                )}
+              </div>
+            </div>
+          </Link>
+
+          <button
+            type="button"
+            className="header__responsive-menu"
+            onClick={handleMobileUserModal}
           />
         </div>
-      </Link>
-      <button
-        type="button"
-        className="header__responsive-menu"
-        onClick={handleMobileUserModal}
-      />
+      ) : (
+        <div className="header__auth-buttons">
+          <button onClick={() => setActiveModal("register")}>Sign Up</button>
+          <button onClick={() => setActiveModal("login")}>Log In</button>
+        </div>
+      )}
     </header>
   );
 }
