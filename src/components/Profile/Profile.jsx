@@ -15,6 +15,12 @@ function Profile({ onCardClick, clothingItems, handleAddClick }) {
           clothingItems={clothingItems}
           handleAddClick={handleAddClick}
         />
+        <button
+          className="profile__edit-button"
+          onClick={() => setActiveModal("edit-profile")}
+        >
+          Edit profile
+        </button>
       </section>
     </div>
   );

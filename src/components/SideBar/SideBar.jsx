@@ -2,12 +2,17 @@ import { Link } from "react-router-dom";
 import "./SideBar.css";
 import avatar from "../../assets/avatar.svg";
 
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+
 function SideBar() {
+  const currentUser = useContext(CurrentUserContext);
+
   return (
     <div className="sidebar">
       <div className="sidebar__user_info-display">
         <img className="sidebar__avatar" src={avatar} alt="Default avatar" />
-        <p className="sidebar__username">Terrence Tegegne</p>
+        <p className="sidebar__username">{currentUser?.username || "Guest"}</p>
       </div>
       <div className="sidebar__user_info-change">
         <button className="sidebar__change_profile">Change profile data</button>
