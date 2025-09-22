@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import AppContext from "../contexts/AppContext";
+import AppContext from "./AppContext";
 
 export default function ProtectedRoute({ children, anonymous = false }) {
   const { isLoggedIn, setPendingRoute, setShowLoginModal, setActiveModal } =

@@ -22,7 +22,7 @@ import {
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
 
-import ProtectedRoute from "../ProtectedRoutes.jsx";
+import ProtectedRoute from "../../contexts/ProtectedRoutes.js";
 
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import { register, login, logout, checkToken } from "../../utils/auth.js";
