@@ -4,6 +4,14 @@ export const handleServerResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
 
+function login({ email, password }) {
+  return fetch(`${baseUrl}/signin`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  }).then(handleServerResponse);
+}
+
 function getItems() {
   return fetch(`${baseUrl}/items`, {
     headers: {
@@ -13,10 +21,14 @@ function getItems() {
 }
 
 function postItems({ name, weather, imageUrl }) {
+  const token = localStorage.getItem("jwt");
+  console.log(token);
+
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ name, weather, imageUrl }),
   }).then(handleServerResponse);
@@ -42,4 +54,4 @@ function updateProfile(name, avatar, token) {
   });
 }
 
-export { getItems, postItems, deleteItems, updateProfile };
+export { login, getItems, postItems, deleteItems, updateProfile };

@@ -30,6 +30,12 @@
   border: none;
   align-items: flex-start;
   padding: 0;
+  background: none;
+  opacity: 1;
+}
+
+.sidebar__user_info-change button:hover {
+  opacity: 0.5;
 }
 
 .sidebar__change_profile {

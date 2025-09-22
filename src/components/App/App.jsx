@@ -25,7 +25,7 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 import ProtectedRoute from "../ProtectedRoutes.jsx";
 
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
-import { register, login, checkToken } from "../../utils/auth.js";
+import { register, login, logout, checkToken } from "../../utils/auth.js";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
@@ -49,7 +49,9 @@ function App() {
   });
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [userData, setUserData] = useState({ username: "", email: "" });
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [pendingRoute, setPendingRoute] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -76,6 +78,8 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+    console.log("JWT token:", localStorage.getItem("jwt"));
+
     return postItems({ name, weather, imageUrl })
       .then((res) => {
         setClothingItems((prevItems) => [
@@ -120,11 +124,16 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
-        if (data == []) {
+        if (Array.isArray(data) && data.length > 0) {
           setClothingItems(data);
+        } else {
+          setClothingItems(defaultClothingItems);
         }
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+        setClothingItems(defaultClothingItems);
+      });
   }, []);
 
   const handleRegistration = ({ name, avatar, email, password }) => {
@@ -146,50 +155,76 @@ function App() {
 
   const handleLogin = ({ email, password }) => {
     login(email, password)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error("Login failed");
-      })
       .then((data) => {
+        console.log("Full login response: ", data);
         localStorage.setItem("jwt", data.token);
 
+        console.log("Stored token:", localStorage.getItem("jwt"));
+
         setIsLoggedIn(true);
+        console.log("Is logged in: true");
+
         setUserData(data.user);
         closeActiveModal();
 
-        if (pendingRoute && typeof pendingRoute === "string") {
+        if (
+          pendingRoute &&
+          typeof pendingRoute === "string" &&
+          pendingRoute.trim() !== ""
+        ) {
           navigate(pendingRoute);
           setPendingRoute(null);
+        } else {
+          navigate("/");
         }
       })
       .catch((err) => {
         console.error("Login error: ", err);
       });
-
-    useEffect(() => {
-      const token = localStorage.getItem("jwt");
-
-      if (token) {
-        checkToken(token)
-          .then((res) => {
-            if (res.ok) {
-              return res.json();
-            }
-            throw new Error("Token is invalid");
-          })
-          .then((userData) => {
-            setUserData(userData);
-            setIsLoggedIn(true);
-          })
-          .catch((err) => {
-            localStorage.removeItem("jwt");
-            console.error("Token validation failed: ", err);
-          });
-      }
-    }, []);
   };
+
+  useEffect(() => {
+    console.log("Current isLoggedIn state:", isLoggedIn);
+  }, [isLoggedIn]);
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        localStorage.removeItem("jwt");
+
+        setIsLoggedIn(false);
+        setUserData(null);
+        closeActiveModal();
+
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error("Logout error: ", err);
+      });
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+
+    if (token) {
+      console.log("Token from localStorage:", token);
+      checkToken(token)
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          throw new Error("Token is invalid");
+        })
+        .then((userData) => {
+          setUserData(userData);
+          setIsLoggedIn(true);
+        })
+        .catch((err) => {
+          localStorage.removeItem("jwt");
+          console.error("Token validation failed: ", err);
+        });
+    }
+  }, []);
 
   const handleUpdateUser = ({ name, avatar }) => {
     const token = localStorage.getItem("jwt");
@@ -210,6 +245,28 @@ function App() {
         localStorage.removeItem("jwt");
         console.error("Token validation failed: ", err);
       });
+  };
+
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = localStorage.getItem("jwt");
+    !isLiked
+      ? api
+
+          .addCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : api
+          .removeCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
   };
 
   return (
@@ -258,6 +315,9 @@ function App() {
                         onCardClick={handleCardClick}
                         clothingItems={clothingItems}
                         handleAddClick={handleAddClick}
+                        setActiveModal={setActiveModal}
+                        handleLogout={handleLogout}
+                        isOwn={true}
                       />
                     </ProtectedRoute>
                   }
@@ -298,9 +358,10 @@ function App() {
               setActiveModal={setActiveModal}
             />
             <EditProfileModal
-              isOpen={activeModal === "editProfile"}
+              isOpen={activeModal === "edit-profile"}
               onClose={closeActiveModal}
               onUpdateUser={handleUpdateUser}
+              setActiveModal={setActiveModal}
             />
           </div>
         </CurrentTemperatureUnitContext.Provider>

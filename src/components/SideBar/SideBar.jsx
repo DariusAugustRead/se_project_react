@@ -5,7 +5,7 @@ import avatar from "../../assets/avatar.svg";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function SideBar() {
+function SideBar({ setActiveModal, handleLogout }) {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -15,8 +15,15 @@ function SideBar() {
         <p className="sidebar__username">{currentUser?.username || "Guest"}</p>
       </div>
       <div className="sidebar__user_info-change">
-        <button className="sidebar__change_profile">Change profile data</button>
-        <button className="sidebar__log-out">Log out</button>
+        <button
+          className="sidebar__change_profile"
+          onClick={() => setActiveModal("edit-profile")}
+        >
+          Change profile data
+        </button>
+        <button className="sidebar__log-out" onClick={handleLogout}>
+          Log out
+        </button>
       </div>
     </div>
   );

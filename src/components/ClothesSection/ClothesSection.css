@@ -12,15 +12,23 @@
   background: transparent;
   opacity: 60%;
   line-height: 1;
-  width: 88px;
-  height: 25px;
-  padding: 0;
+  padding: 0 0 10px;
   margin: 0 0 0 20px;
 }
 
 .clothes-section__button:hover {
   opacity: 1;
   transition: opacity 0.5s;
+}
+
+.clothes-section__edit-button {
+  border: none;
+  padding: 0;
+  margin-left: 20px;
+}
+
+.clothes-section__edit-button:hover {
+  opacity: 50%;
 }
 
 .clothes-section__title {

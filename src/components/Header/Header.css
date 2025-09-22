@@ -109,6 +109,11 @@ div.header__auth-buttons button {
   border: none;
   font-size: 20px;
   padding: 0;
+  opacity: 1;
+}
+
+div.header__auth-buttons button:hover {
+  opacity: 0.5;
 }
 
 .header__responsive-menu {
