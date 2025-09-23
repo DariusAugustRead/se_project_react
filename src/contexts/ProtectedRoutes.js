@@ -10,10 +10,9 @@ export default function ProtectedRoute({ children, anonymous = false }) {
 
   useEffect(() => {
     if (!anonymous && !isLoggedIn) {
-      // Save the intended route and trigger login modal
       setPendingRoute(location.pathname);
       setShowLoginModal(true);
-      setActiveModal("login");
+      setActiveModal("");
     }
   }, [
     isLoggedIn,
@@ -24,14 +23,9 @@ export default function ProtectedRoute({ children, anonymous = false }) {
     setActiveModal,
   ]);
 
-  // If user is not logged in and route is protected, don't render anything
   if (!anonymous && !isLoggedIn) {
     return null;
   }
-
-  // If route is anonymous and user is logged in, redirect logic could go here
-  // Example: redirect logged-in users away from login/register pages
-  // But since you're using modals, you may not need this block
 
   return children;
 }

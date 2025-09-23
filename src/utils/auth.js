@@ -1,7 +1,7 @@
 const baseUrl = "http://localhost:3001";
 
 export const register = (name, avatar, email, password) => {
-  return fetch(`${baseUrl}/register`, {
+  return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -156,17 +156,10 @@ function App() {
   const handleLogin = ({ email, password }) => {
     login(email, password)
       .then((data) => {
-        console.log("Full login response: ", data);
         localStorage.setItem("jwt", data.token);
-
-        console.log("Stored token:", localStorage.getItem("jwt"));
-
         setIsLoggedIn(true);
-        console.log("Is logged in: true");
-
         setUserData(data.user);
         closeActiveModal();
-
         if (
           pendingRoute &&
           typeof pendingRoute === "string" &&

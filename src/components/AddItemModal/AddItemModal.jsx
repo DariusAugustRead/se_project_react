@@ -81,7 +81,9 @@ export default function AddItemModal({
             onChange={handleWeatherChange}
             checked={weather === "hot"}
           />
-          <label className="modal__label_type_radio">Hot</label>
+          <label className="modal__label_type_radio" htmlFor="hot">
+            Hot
+          </label>
         </div>
         <div className="modal__radio-container">
           <input
@@ -93,7 +95,9 @@ export default function AddItemModal({
             onChange={handleWeatherChange}
             checked={weather === "warm"}
           />{" "}
-          <label className="modal__label_type_radio">Warm</label>
+          <label className="modal__label_type_radio" htmlFor="warm">
+            Warm
+          </label>
         </div>
         <div className="modal__radio-container">
           <input
@@ -105,7 +109,9 @@ export default function AddItemModal({
             onChange={handleWeatherChange}
             checked={weather === "cold"}
           />{" "}
-          <label className="modal__label_type_radio">Cold</label>
+          <label className="modal__label_type_radio" htmlFor="cold">
+            Cold
+          </label>
         </div>
       </fieldset>
     </ModalWithForm>

@@ -3,14 +3,20 @@ import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 export default function LoginModal({
-  email,
-  password,
   isOpen,
   onClose,
   onClick,
   activeModal,
   setActiveModal,
 }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onClick({ email, password });
+  };
+
   return (
     <ModalWithForm
       title="Log In"
@@ -18,7 +24,7 @@ export default function LoginModal({
       swapText="or Register"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={onClick}
+      onSubmit={handleSubmit}
       activeModal={activeModal}
       setActiveModal={setActiveModal}
     >
@@ -28,21 +34,23 @@ export default function LoginModal({
       <input
         type="email"
         className="modal__input"
-        id="name"
+        id="email"
         placeholder="Email"
         required
         value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <label htmlFor="password" className="modal__label">
         Password
       </label>
       <input
-        type="text"
+        type="password"
         className="modal__input"
-        id="name"
+        id="password"
         placeholder="Password"
         required
         value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
     </ModalWithForm>
   );

@@ -12,13 +12,17 @@ function login({ email, password }) {
   }).then(handleServerResponse);
 }
 
-function getItems() {
-  return fetch(`${baseUrl}/items`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then(handleServerResponse);
-}
+const getItems = () => {
+  return fetch(`${baseUrl}/items`)
+    .then((res) => {
+      console.log("Response status:", res.status);
+      if (res.ok) return res.json();
+      throw new Error("Failed to fetch items");
+    })
+    .catch((err) => {
+      console.error("Fetch error:", err);
+    });
+};
 
 function postItems({ name, weather, imageUrl }) {
   const token = localStorage.getItem("jwt");
