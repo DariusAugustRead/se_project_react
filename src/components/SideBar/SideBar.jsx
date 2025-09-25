@@ -11,8 +11,20 @@ function SideBar({ setActiveModal, handleLogout }) {
   return (
     <div className="sidebar">
       <div className="sidebar__user_info-display">
-        <img className="sidebar__avatar" src={avatar} alt="Default avatar" />
-        <p className="sidebar__username">{currentUser?.username || "Guest"}</p>
+        <div className="sidebar__avatar">
+          {currentUser?.avatar ? (
+            <img
+              src={currentUser.avatar}
+              alt={currentUser.name}
+              className="sidebar__avatar-image"
+            />
+          ) : (
+            <div className="header__avatar-placeholder">
+              {currentUser?.name?.[0]?.toUpperCase()}
+            </div>
+          )}
+        </div>
+        <p className="sidebar__username">{currentUser?.name || "Guest"}</p>
       </div>
       <div className="sidebar__user_info-change">
         <button

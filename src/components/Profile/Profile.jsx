@@ -8,11 +8,17 @@ function Profile({
   clothingItems,
   handleAddClick,
   setActiveModal,
+  handleLogout,
+  userData,
 }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar setActiveModal={setActiveModal} />
+        <SideBar
+          setActiveModal={setActiveModal}
+          handleLogout={handleLogout}
+          userData={userData}
+        />
       </section>
       <section className="profile__clothing-section">
         <ClothesSection

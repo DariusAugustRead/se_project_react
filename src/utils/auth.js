@@ -40,7 +40,6 @@ export const checkToken = (token) => {
       authorization: `Bearer ${token}`,
     },
   }).then((res) => {
-    console.log("checkToken response:", res);
     return res;
   });
 };

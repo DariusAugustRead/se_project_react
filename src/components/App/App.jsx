@@ -156,9 +156,15 @@ function App() {
   const handleLogin = ({ email, password }) => {
     login(email, password)
       .then((data) => {
+        console.log("Login response:", data);
         localStorage.setItem("jwt", data.token);
         setIsLoggedIn(true);
-        setUserData(data.user);
+        console.log("Logged in user:", data.user);
+        setUserData({
+          name: data.user.name,
+          avatar: data.user.avatar,
+          email: data.user.email,
+        });
         closeActiveModal();
         if (
           pendingRoute &&
@@ -175,10 +181,6 @@ function App() {
         console.error("Login error: ", err);
       });
   };
-
-  useEffect(() => {
-    console.log("Current isLoggedIn state:", isLoggedIn);
-  }, [isLoggedIn]);
 
   const handleLogout = () => {
     logout()
@@ -200,7 +202,6 @@ function App() {
     const token = localStorage.getItem("jwt");
 
     if (token) {
-      console.log("Token from localStorage:", token);
       checkToken(token)
         .then((res) => {
           if (res.ok) {
@@ -219,10 +220,11 @@ function App() {
     }
   }, []);
 
-  const handleUpdateUser = ({ name, avatar }) => {
+  const handleUpdateUser = (name, avatar) => {
     const token = localStorage.getItem("jwt");
+    console.log("Using token:", token);
 
-    updateProfile(name, avatar)
+    updateProfile(name, avatar, token)
       .then((res) => {
         if (res.ok) {
           return res.json();

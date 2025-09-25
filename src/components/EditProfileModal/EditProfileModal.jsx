@@ -7,7 +7,6 @@ function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
 
-  // Pre-fill form with current user data
   useEffect(() => {
     if (currentUser) {
       setName(currentUser.name || "");

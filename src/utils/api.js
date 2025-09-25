@@ -15,7 +15,6 @@ function login({ email, password }) {
 const getItems = () => {
   return fetch(`${baseUrl}/items`)
     .then((res) => {
-      console.log("Response status:", res.status);
       if (res.ok) return res.json();
       throw new Error("Failed to fetch items");
     })

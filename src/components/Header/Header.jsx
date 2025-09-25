@@ -1,6 +1,5 @@
 import "./Header.css";
 import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom";
 
@@ -47,9 +46,7 @@ function Header({
           </button>
           <Link to="/profile" className="header__link">
             <div className="header__user-container">
-              <p className="header__username">
-                {currentUser?.username || "Guest"}
-              </p>
+              <p className="header__username">{currentUser?.name || "Guest"}</p>
               <div className="header__avatar">
                 {currentUser?.avatar ? (
                   <img

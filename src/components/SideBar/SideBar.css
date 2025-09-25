@@ -15,9 +15,10 @@
   flex-direction: row;
 }
 
-.sidebar__avatar {
+.sidebar__avatar-image {
   width: 56px;
   height: 56px;
+  border-radius: 50%;
 }
 
 .sidebar__user_info-change {
@@ -36,9 +37,6 @@
 
 .sidebar__user_info-change button:hover {
   opacity: 0.5;
-}
-
-.sidebar__change_profile {
 }
 
 .sidebar__log-out {
