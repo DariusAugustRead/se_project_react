@@ -6,7 +6,7 @@ function ItemCard({ item, onCardClick }) {
   };
 
   return (
-    <li className="card">
+    <div className="card">
       <div className="card__top">
         <h2 className="card__name">{item.name}</h2>
         <button className="card__like-btn" src="" alt="like icon" />
@@ -17,7 +17,7 @@ function ItemCard({ item, onCardClick }) {
         alt={item.name}
         className="card__image"
       />
-    </li>
+    </div>
   );
 }
 

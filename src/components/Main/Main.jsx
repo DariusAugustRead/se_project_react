@@ -6,24 +6,28 @@ import { useContext } from "react";
 
 function Main({ weatherData, handleCardClick, clothingItems }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+
+  // const filteredItems = clothingItems.filter(
+  //   (item) => item.weather?.toLowerCase() === weatherData?.type.toLowerCase()
+  // );
+
+  const filteredItems = clothingItems;
+
   return (
     <main>
       <WeatherCard weatherData={weatherData} />
+
       <section className="cards">
         <p className="cards__text">
           Today is {weatherData?.temp[currentTemperatureUnit]}&deg;
           {currentTemperatureUnit} / You may want to wear:
         </p>
         <ul className="cards__list">
-          {clothingItems
-            .filter((item) => item.weather === weatherData?.type)
-            .map((filteredItem) => (
-              <ItemCard
-                key={filteredItem._id}
-                item={filteredItem}
-                onCardClick={handleCardClick}
-              />
-            ))}
+          {filteredItems.map((item, index) => (
+            <li key={item._id || `fallback-${index}`}>
+              <ItemCard item={item} onCardClick={handleCardClick} />
+            </li>
+          ))}
         </ul>
       </section>
       {/* <button className="cards__randomizer">

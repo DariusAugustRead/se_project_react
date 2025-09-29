@@ -22,6 +22,7 @@ export default function AddItemModal({
 
   const handleWeatherChange = (evt) => {
     setWeather(evt.target.value);
+    console.log("Selected weather:", evt.target.value);
   };
 
   const handleSubmit = (evt) => {
@@ -78,7 +79,8 @@ export default function AddItemModal({
             name="temp"
             id="hot"
             value="hot"
-            onChange={handleWeatherChange}
+            onClick={(evt) => setWeather(evt.target.value)}
+            onChange={() => {}}
             checked={weather === "hot"}
           />
           <label className="modal__label_type_radio" htmlFor="hot">
@@ -92,7 +94,8 @@ export default function AddItemModal({
             name="temp"
             id="warm"
             value="warm"
-            onChange={handleWeatherChange}
+            onClick={(evt) => setWeather(evt.target.value)}
+            onChange={() => {}}
             checked={weather === "warm"}
           />{" "}
           <label className="modal__label_type_radio" htmlFor="warm">
@@ -106,7 +109,8 @@ export default function AddItemModal({
             name="temp"
             id="cold"
             value="cold"
-            onChange={handleWeatherChange}
+            onClick={(evt) => setWeather(evt.target.value)}
+            onChange={() => {}}
             checked={weather === "cold"}
           />{" "}
           <label className="modal__label_type_radio" htmlFor="cold">

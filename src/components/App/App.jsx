@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./App.css";
@@ -33,6 +33,7 @@ import AppContext from "../../contexts/AppContext.js";
 import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 
 function App() {
+  const [clothingItems, setClothingItems] = useState([]);
   const [weatherData, setWeatherData] = useState({
     city: "",
     temp: { F: 999, C: 999 },
@@ -40,7 +41,6 @@ function App() {
     condition: "",
     isDay: false,
   });
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({
     imageUrl: "",
@@ -65,6 +65,7 @@ function App() {
   };
 
   const handleCardClick = (card) => {
+    console.log("Card clicked:", card);
     setActiveModal("preview");
     setSelectedCard(card);
   };
@@ -78,16 +79,19 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    console.log("JWT token:", localStorage.getItem("jwt"));
-
     return postItems({ name, weather, imageUrl })
-      .then((res) => {
-        setClothingItems((prevItems) => [
-          { name, imageUrl, weather, _id: res._id },
-          ...prevItems,
-        ]);
+      .then(() => {
+        return getItems();
       })
-      .then(closeActiveModal);
+      .then((data) => {
+        const items = res.data;
+        if (Array.isArray(items)) {
+          setClothingItems(items);
+          console.log("Updated clothingItems:", items);
+        }
+      })
+      .then(closeActiveModal)
+      .catch(console.error);
   };
 
   const handleCardDelete = () => {
@@ -123,16 +127,15 @@ function App() {
 
   useEffect(() => {
     getItems()
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setClothingItems(data);
-        } else {
-          setClothingItems(defaultClothingItems);
+      .then((res) => {
+        const items = res.data;
+        console.log("Fetched items:", items);
+        if (Array.isArray(items)) {
+          setClothingItems(items);
         }
       })
       .catch((err) => {
-        console.error(err);
-        setClothingItems(defaultClothingItems);
+        console.error("Fetch error:", err);
       });
   }, []);
 
@@ -246,7 +249,6 @@ function App() {
     const token = localStorage.getItem("jwt");
     !isLiked
       ? api
-
           .addCardLike(id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
@@ -276,6 +278,9 @@ function App() {
         setActiveModal,
       }}
     >
+      {console.log("selectedCard:", selectedCard)}
+      {console.log("CurrentUserContext", CurrentUserContext)}
+
       <CurrentUserContext.Provider value={userData}>
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -326,12 +331,19 @@ function App() {
               onAddItemModalSubmit={handleAddItemModalSubmit}
             />
             {selectedCard && (
-              <ItemModal
-                activeModal={activeModal}
-                onClose={closeActiveModal}
-                card={selectedCard}
-                onClick={handleCardDelete}
-              />
+              <>
+                {console.log(
+                  "Rendering ItemModal with activeModal:",
+                  activeModal
+                )}
+                <ItemModal
+                  activeModal={activeModal}
+                  onClose={closeActiveModal}
+                  card={selectedCard}
+                  onClick={handleCardDelete}
+                  isOwn={selectedCard.owner === userData._id}
+                />
+              </>
             )}
             <MobileUserModal
               isOpen={activeModal === "mobile-modal"}

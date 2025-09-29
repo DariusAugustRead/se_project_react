@@ -16,13 +16,13 @@ function ClothesSection({ onCardClick, clothingItems, handleAddClick, isOwn }) {
         </button>
       </div>
       <ul className="clothes-section__items">
-        {clothingItems.map((filteredItem) => (
-          <ItemCard
-            key={filteredItem._id}
-            item={filteredItem}
-            onCardClick={onCardClick}
-          />
-        ))}
+        {clothingItems
+          .filter((item) => item && item._id)
+          .map((filteredItem) => (
+            <li key={filteredItem._id} className="clothing-section__card">
+              <ItemCard item={filteredItem} onCardClick={onCardClick} />
+            </li>
+          ))}
       </ul>
     </div>
   );

@@ -15,17 +15,19 @@ function login({ email, password }) {
 const getItems = () => {
   return fetch(`${baseUrl}/items`)
     .then((res) => {
-      if (res.ok) return res.json();
-      throw new Error("Failed to fetch items");
+      console.log("Raw response from backend:", res);
+
+      if (!res.ok) throw new Error("Failed to fetch items");
+      return res.json();
     })
     .catch((err) => {
       console.error("Fetch error:", err);
+      return []; // ← return empty array explicitly
     });
 };
 
 function postItems({ name, weather, imageUrl }) {
   const token = localStorage.getItem("jwt");
-  console.log(token);
 
   return fetch(`${baseUrl}/items`, {
     method: "POST",
@@ -56,5 +58,21 @@ function updateProfile(name, avatar, token) {
     body: JSON.stringify({ name, avatar }),
   });
 }
+
+// const fetchClothingItems = () => {
+//   const token = localStorage.getItem("jwt");
+//   return fetch(`${baseUrl}/items`, {
+//     method: "GET",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//       "Content-Type": "application/json",
+//     },
+//   }).then((res) => {
+//     if (!res.ok) {
+//       throw new Error("Failed to fetch clothing items");
+//     }
+//     return res.json();
+//   });
+// };
 
 export { login, getItems, postItems, deleteItems, updateProfile };
