@@ -13,10 +13,6 @@ function Main({
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
-  // const filteredItems = clothingItems.filter(
-  //   (item) => item.weather?.toLowerCase() === weatherData?.type.toLowerCase()
-  // );
-
   const filteredItems = clothingItems;
 
   return (
@@ -41,14 +37,6 @@ function Main({
           ))}
         </ul>
       </section>
-      {/* <button className="cards__randomizer">
-        <img
-          src="../../assets/randomize-arrow.svg"
-          alt="randomizer arrow"
-          className="cards__randomizer-arrow"
-        />
-        Randomize
-      </button> */}
     </main>
   );
 }

@@ -1,38 +1,44 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// ─── React & Router ─────────────────────────────
+import { useCallback, useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
+// ─── Styles ─────────────────────────────────────
 import "./App.css";
+
+// ─── Constants ──────────────────────────────────
 import { coordinates, APIkey } from "../../utils/constants";
-import Header from "../Header/Header";
-import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
-import ItemModal from "../ItemModal/ItemModal";
-import { Routes, Route } from "react-router-dom";
-import Profile from "../Profile/Profile";
-import AddItemModal from "../AddItemModal/AddItemModal";
-import MobileUserModal from "../MobileUserModal/MobileUserModal";
-import * as api from "../../utils/api.js";
+
+// ─── Contexts ───────────────────────────────────
+import AppContext from "../../contexts/AppContext";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import ProtectedRoute from "../../contexts/ProtectedRoutes";
+
+// ─── API & Utils ────────────────────────────────
+import * as api from "../../utils/api";
 import {
   getItems,
   postItems,
   deleteItems,
   updateProfile,
-} from "../../utils/api.js";
-
+} from "../../utils/api";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
+import { register, login, logout, checkToken } from "../../utils/auth";
 
-import ProtectedRoute from "../../contexts/ProtectedRoutes.js";
-
-import RegisterModal from "../RegisterModal/RegisterModal.jsx";
-import { register, login, logout, checkToken } from "../../utils/auth.js";
-import LoginModal from "../LoginModal/LoginModal.jsx";
-
-import CurrentUserContext from "../../contexts/CurrentUserContext.js";
-import AppContext from "../../contexts/AppContext.js";
-import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
+// ─── Components ─────────────────────────────────
+import AddItemModal from "../AddItemModal/AddItemModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+import ItemModal from "../ItemModal/ItemModal";
+import LoginModal from "../LoginModal/LoginModal";
+import Main from "../Main/Main";
+import MobileUserModal from "../MobileUserModal/MobileUserModal";
+import Profile from "../Profile/Profile";
+import RegisterModal from "../RegisterModal/RegisterModal";
 
 function App() {
+  // ─── State ─────────────────────────────────────
   const [clothingItems, setClothingItems] = useState([]);
   const [weatherData, setWeatherData] = useState({
     city: "",
@@ -41,233 +47,69 @@ function App() {
     condition: "",
     isDay: false,
   });
+
   const [activeModal, setActiveModal] = useState("");
-  const [selectedCard, setSelectedCard] = useState({
-    imageUrl: "",
-    name: "",
-    weather: "",
-  });
+  const [selectedCard, setSelectedCard] = useState(null);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [userData, setUserData] = useState({ username: "", email: "" });
 
+  const [userData, setUserData] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [pendingRoute, setPendingRoute] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleToggleSwitchChange = () => {
-    setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
-  };
-  const handleAddClick = () => {
-    setActiveModal("add-garment");
-  };
+  // ─── UI Handlers ───────────────────────────────
+  const handleToggleSwitchChange = () =>
+    setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F"));
 
-  const handleCardClick = (card) => {
-    if (!userData?._id) {
-      console.warn("User not ready — delaying modal open.");
-      return;
-    }
-    setSelectedCard(card);
-    setActiveModal("preview");
-  };
+  const handleAddClick = () => setActiveModal("add-garment");
+  const handleMobileUserModal = () => setActiveModal("mobile-modal");
+  const closeActiveModal = () => setActiveModal("");
 
-  const closeActiveModal = () => {
-    setActiveModal("");
-  };
+  // ─── Modal Logic ───────────────────────────────
+  const handleCardClick = useCallback(
+    (card) => {
+      if (!userData?._id) return;
+      setSelectedCard(card);
+      setActiveModal("preview");
+    },
+    [userData]
+  );
 
-  const handleMobileUserModal = () => {
-    setActiveModal("mobile-modal");
-  };
-
+  // ─── Item Actions ──────────────────────────────
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     return postItems({ name, weather, imageUrl })
-      .then(() => {
-        return getItems();
-      })
-      .then((data) => {
+      .then(() => getItems())
+      .then((res) => {
         const items = res.data;
-        if (Array.isArray(items)) {
-          setClothingItems(items);
-          console.log("Updated clothingItems:", items);
-        }
+        if (Array.isArray(items)) setClothingItems(items);
       })
       .then(closeActiveModal)
       .catch(console.error);
   };
 
   const handleCardDelete = () => {
+    if (!selectedCard?._id) return;
     deleteItems(selectedCard._id)
       .then(() => {
-        setClothingItems(
-          clothingItems.filter((item) => {
-            return item._id !== selectedCard._id;
-          })
+        setClothingItems((items) =>
+          items.filter((item) => item._id !== selectedCard._id)
         );
       })
       .then(closeActiveModal)
       .catch(console.error);
   };
 
-  useEffect(() => {
-    const localWeather = JSON.parse(localStorage.getItem("weather"));
-
-    if (localWeather) {
-      setWeatherData(localWeather);
-      return;
-    }
-
-    if (coordinates && APIkey) {
-      getWeather(coordinates, APIkey)
-        .then((data) => {
-          const filteredData = filterWeatherData(data);
-          setWeatherData(filteredData);
-        })
-        .catch(console.error);
-    }
-  }, [coordinates, APIkey]);
-
-  useEffect(() => {
-    getItems()
-      .then((res) => {
-        const items = res.data;
-        if (Array.isArray(items)) {
-          setClothingItems(items);
-        }
-      })
-      .catch((err) => {
-        console.error("Fetch error:", err);
-      });
-  }, []);
-
-  const handleRegistration = ({ name, avatar, email, password }) => {
-    register(name, avatar, email, password)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error("Registration failed");
-      })
-      .then((data) => {
-        closeActiveModal();
-        handleLogin({ email, password });
-      })
-      .catch((err) => {
-        console.error("Registration error: ", err);
-      });
-  };
-
-  const handleLogin = ({ email, password }) => {
-    login(email, password)
-      .then((data) => {
-        console.log("Login response:", data);
-        localStorage.setItem("jwt", data.token);
-        setIsLoggedIn(true);
-        console.log("Logged in user:", data.user);
-        setUserData({
-          _id: data.user._id,
-          name: data.user.name,
-          avatar: data.user.avatar,
-          email: data.user.email,
-        });
-        closeActiveModal();
-        if (
-          pendingRoute &&
-          typeof pendingRoute === "string" &&
-          pendingRoute.trim() !== ""
-        ) {
-          navigate(pendingRoute);
-          setPendingRoute(null);
-        } else {
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        console.error("Login error: ", err);
-      });
-  };
-
-  const handleLogout = () => {
-    logout()
-      .then(() => {
-        localStorage.removeItem("jwt");
-
-        setIsLoggedIn(false);
-        setUserData(null);
-        closeActiveModal();
-        setSelectedCard(null);
-
-        navigate("/");
-      })
-      .catch((err) => {
-        console.error("Logout error: ", err);
-      });
-  };
-
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
-
-    if (token) {
-      checkToken(token)
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          throw new Error("Token is invalid");
-        })
-        .then((userData) => {
-          setUserData(userData);
-          setIsLoggedIn(true);
-        })
-        .catch((err) => {
-          localStorage.removeItem("jwt");
-          console.error("Token validation failed: ", err);
-        });
-    }
-  }, []);
-
-  const handleUpdateUser = (name, avatar) => {
-    const token = localStorage.getItem("jwt");
-    console.log("Using token:", token);
-
-    updateProfile(name, avatar, token)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error("No response from server");
-      })
-      .then((userData) => {
-        setUserData(userData);
-        setIsLoggedIn(true);
-        closeActiveModal();
-      })
-      .catch((err) => {
-        localStorage.removeItem("jwt");
-        console.error("Token validation failed: ", err);
-      });
-  };
-
   const handleCardLike = ({ id, isLiked }) => {
     const token = localStorage.getItem("jwt");
-
     const request = isLiked
       ? api.removeCardLike(id, token)
       : api.addCardLike(id, token);
 
     request.then((response) => {
       const updatedCard = response.data;
-
-      if (
-        !updatedCard ||
-        typeof updatedCard !== "object" ||
-        !updatedCard._id ||
-        !Array.isArray(updatedCard.likes)
-      ) {
-        console.error("Invalid updatedCard:", updatedCard);
-        return;
-      }
+      if (!updatedCard?._id || !Array.isArray(updatedCard.likes)) return;
 
       setClothingItems((cards) =>
         cards.map((item) =>
@@ -278,6 +120,110 @@ function App() {
       );
     });
   };
+
+  // ─── Auth Handlers ─────────────────────────────
+  const handleLogin = async ({ email, password }) => {
+    try {
+      const data = await login(email, password);
+      localStorage.setItem("jwt", data.token);
+      setIsLoggedIn(true);
+      setUserData({
+        _id: data.user._id,
+        name: data.user.name,
+        avatar: data.user.avatar,
+        email: data.user.email,
+      });
+      closeActiveModal();
+      navigate(pendingRoute?.trim() || "/");
+      setPendingRoute(null);
+    } catch (err) {
+      console.error("Login error:", err);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      localStorage.removeItem("jwt");
+      setIsLoggedIn(false);
+      setUserData(null);
+      setSelectedCard(null);
+      closeActiveModal();
+      navigate("/");
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+  };
+
+  const handleRegistration = async ({ name, avatar, email, password }) => {
+    try {
+      const res = await register(name, avatar, email, password);
+      if (!res.ok) throw new Error("Registration failed");
+      await res.json();
+      closeActiveModal();
+      await handleLogin({ email, password });
+    } catch (err) {
+      console.error("Registration error:", err);
+    }
+  };
+
+  const handleUpdateUser = async (name, avatar) => {
+    try {
+      const token = localStorage.getItem("jwt");
+      const res = await updateProfile(name, avatar, token);
+      if (!res.ok) throw new Error("No response from server");
+      const userData = await res.json();
+      setUserData(userData);
+      setIsLoggedIn(true);
+      closeActiveModal();
+    } catch (err) {
+      localStorage.removeItem("jwt");
+      console.error("Token validation failed:", err);
+    }
+  };
+
+  // ─── Effects ───────────────────────────────────
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (!token) return;
+
+    checkToken(token)
+      .then((res) => {
+        if (!res.ok) throw new Error("Token is invalid");
+        return res.json();
+      })
+      .then((userData) => {
+        setUserData(userData);
+        setIsLoggedIn(true);
+      })
+      .catch((err) => {
+        localStorage.removeItem("jwt");
+        console.error("Token validation failed:", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    getItems()
+      .then((res) => {
+        const items = res.data;
+        if (Array.isArray(items)) setClothingItems(items);
+      })
+      .catch((err) => console.error("Fetch error:", err));
+  }, []);
+
+  useEffect(() => {
+    const localWeather = JSON.parse(localStorage.getItem("weather"));
+    if (localWeather) {
+      setWeatherData(localWeather);
+      return;
+    }
+
+    if (coordinates && APIkey) {
+      getWeather(coordinates, APIkey)
+        .then((data) => setWeatherData(filterWeatherData(data)))
+        .catch(console.error);
+    }
+  }, [coordinates, APIkey]);
 
   return (
     <AppContext.Provider
