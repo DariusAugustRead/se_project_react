@@ -4,7 +4,13 @@ import ItemCard from "../ItemCard/ItemCard.jsx";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
 import { useContext } from "react";
 
-function Main({ weatherData, handleCardClick, clothingItems }) {
+function Main({
+  weatherData,
+  handleCardClick,
+  clothingItems,
+  handleCardLike,
+  userId,
+}) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   // const filteredItems = clothingItems.filter(
@@ -25,7 +31,12 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
         <ul className="cards__list">
           {filteredItems.map((item, index) => (
             <li key={item._id || `fallback-${index}`}>
-              <ItemCard item={item} onCardClick={handleCardClick} />
+              <ItemCard
+                item={item}
+                onCardClick={handleCardClick}
+                handleCardLike={handleCardLike}
+                userId={userId}
+              />
             </li>
           ))}
         </ul>

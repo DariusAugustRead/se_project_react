@@ -15,8 +15,6 @@ function login({ email, password }) {
 const getItems = () => {
   return fetch(`${baseUrl}/items`)
     .then((res) => {
-      console.log("Raw response from backend:", res);
-
       if (!res.ok) throw new Error("Failed to fetch items");
       return res.json();
     })
@@ -44,6 +42,7 @@ function deleteItems(id) {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   }).then(handleServerResponse);
 }
@@ -59,20 +58,32 @@ function updateProfile(name, avatar, token) {
   });
 }
 
-// const fetchClothingItems = () => {
-//   const token = localStorage.getItem("jwt");
-//   return fetch(`${baseUrl}/items`, {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//       "Content-Type": "application/json",
-//     },
-//   }).then((res) => {
-//     if (!res.ok) {
-//       throw new Error("Failed to fetch clothing items");
-//     }
-//     return res.json();
-//   });
-// };
+function addCardLike(itemId, token) {
+  return fetch(`${baseUrl}/items/${itemId}/likes`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(handleServerResponse);
+}
 
-export { login, getItems, postItems, deleteItems, updateProfile };
+function removeCardLike(itemId, token) {
+  return fetch(`${baseUrl}/items/${itemId}/likes`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(handleServerResponse);
+}
+
+export {
+  login,
+  getItems,
+  postItems,
+  deleteItems,
+  updateProfile,
+  addCardLike,
+  removeCardLike,
+};

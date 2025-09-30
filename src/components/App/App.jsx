@@ -10,8 +10,8 @@ import ItemModal from "../ItemModal/ItemModal";
 import { Routes, Route } from "react-router-dom";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { defaultClothingItems } from "../../utils/constants";
 import MobileUserModal from "../MobileUserModal/MobileUserModal";
+import * as api from "../../utils/api.js";
 import {
   getItems,
   postItems,
@@ -65,9 +65,12 @@ function App() {
   };
 
   const handleCardClick = (card) => {
-    console.log("Card clicked:", card);
-    setActiveModal("preview");
+    if (!userData?._id) {
+      console.warn("User not ready — delaying modal open.");
+      return;
+    }
     setSelectedCard(card);
+    setActiveModal("preview");
   };
 
   const closeActiveModal = () => {
@@ -129,7 +132,6 @@ function App() {
     getItems()
       .then((res) => {
         const items = res.data;
-        console.log("Fetched items:", items);
         if (Array.isArray(items)) {
           setClothingItems(items);
         }
@@ -164,6 +166,7 @@ function App() {
         setIsLoggedIn(true);
         console.log("Logged in user:", data.user);
         setUserData({
+          _id: data.user._id,
           name: data.user.name,
           avatar: data.user.avatar,
           email: data.user.email,
@@ -193,6 +196,7 @@ function App() {
         setIsLoggedIn(false);
         setUserData(null);
         closeActiveModal();
+        setSelectedCard(null);
 
         navigate("/");
       })
@@ -247,23 +251,32 @@ function App() {
 
   const handleCardLike = ({ id, isLiked }) => {
     const token = localStorage.getItem("jwt");
-    !isLiked
-      ? api
-          .addCardLike(id, token)
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
-            );
-          })
-          .catch((err) => console.log(err))
-      : api
-          .removeCardLike(id, token)
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
-            );
-          })
-          .catch((err) => console.log(err));
+
+    const request = isLiked
+      ? api.removeCardLike(id, token)
+      : api.addCardLike(id, token);
+
+    request.then((response) => {
+      const updatedCard = response.data;
+
+      if (
+        !updatedCard ||
+        typeof updatedCard !== "object" ||
+        !updatedCard._id ||
+        !Array.isArray(updatedCard.likes)
+      ) {
+        console.error("Invalid updatedCard:", updatedCard);
+        return;
+      }
+
+      setClothingItems((cards) =>
+        cards.map((item) =>
+          item._id === updatedCard._id
+            ? { ...item, likes: [...updatedCard.likes] }
+            : item
+        )
+      );
+    });
   };
 
   return (
@@ -278,9 +291,6 @@ function App() {
         setActiveModal,
       }}
     >
-      {console.log("selectedCard:", selectedCard)}
-      {console.log("CurrentUserContext", CurrentUserContext)}
-
       <CurrentUserContext.Provider value={userData}>
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -304,6 +314,8 @@ function App() {
                       weatherData={weatherData}
                       handleCardClick={handleCardClick}
                       clothingItems={clothingItems}
+                      handleCardLike={handleCardLike}
+                      userId={userData?._id || ""}
                     />
                   }
                 />
@@ -330,18 +342,15 @@ function App() {
               isOpen={activeModal === "add-garment"}
               onAddItemModalSubmit={handleAddItemModalSubmit}
             />
-            {selectedCard && (
+            {selectedCard && selectedCard.owner && (
               <>
-                {console.log(
-                  "Rendering ItemModal with activeModal:",
-                  activeModal
-                )}
                 <ItemModal
                   activeModal={activeModal}
                   onClose={closeActiveModal}
                   card={selectedCard}
                   onClick={handleCardDelete}
-                  isOwn={selectedCard.owner === userData._id}
+                  handleCardLike={handleCardLike}
+                  isOwn={selectedCard?.owner === userData?._id}
                 />
               </>
             )}
