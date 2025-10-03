@@ -31,49 +31,49 @@ export default function RegisterModal({
       activeModal={activeModal}
       setActiveModal={setActiveModal}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="register-email" className="modal__label">
         Email*{" "}
       </label>
       <input
         type="email"
         className="modal__input"
-        id="email"
+        id="register-email"
         placeholder="Email"
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="register-password" className="modal__label">
         Password*{" "}
       </label>
       <input
         type="password"
         className="modal__input"
-        id="password"
+        id="register-password"
         placeholder="Password"
         required
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="register-name" className="modal__label">
         Name*{" "}
       </label>
       <input
         type="name"
         className="modal__input"
-        id="name"
+        id="register-name"
         placeholder="Name"
         required
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <label htmlFor="avatar-url" className="modal__label">
+      <label htmlFor="register-avatar-url" className="modal__label">
         Avatar URL*{" "}
       </label>
       <input
         type="avatar"
         className="modal__input"
-        id="avatar"
+        id="register-avatar"
         placeholder="Avatar URL"
         required
         value={avatarURL}

@@ -32,13 +32,13 @@ export default function AddItemModal({
       isOpen={isOpen}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="addItem-name" className="modal__label">
         Name{" "}
       </label>
       <input
         type="text"
         className="modal__input"
-        id="name"
+        id="addItem-name"
         name="name"
         placeholder="Name"
         required
@@ -49,13 +49,13 @@ export default function AddItemModal({
       />
       <span className="modal__error">{errors.name}</span>
 
-      <label htmlFor="imageUrl" className="modal__label">
+      <label htmlFor="addItem-imageUrl" className="modal__label">
         Image{" "}
       </label>
       <input
         type="url"
         className="modal__input"
-        id="imageUrl"
+        id="addItem-imageUrl"
         name="imageUrl"
         placeholder="Image URL"
         required

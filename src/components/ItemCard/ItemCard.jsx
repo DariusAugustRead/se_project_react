@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import "./ItemCard.css";
 
-function ItemCard({ item, onCardClick, handleCardLike, userId }) {
+function ItemCard({ item, onCardClick, handleCardLike, userId, isLoggedIn }) {
   const isLiked =
     Array.isArray(item.likes) &&
     item.likes.map(String).includes(String(userId));
@@ -10,27 +9,27 @@ function ItemCard({ item, onCardClick, handleCardLike, userId }) {
     onCardClick(item);
   };
 
+  const handleLikeClick = () => {
+    if (!item?._id) {
+      console.error("missing item._id in ItemCard");
+      return;
+    }
+    handleCardLike(item, isLiked);
+  };
+
   return (
     <div className="card">
       <div className="card__top">
         <h2 className="card__name">{item.name}</h2>
-        <button
-          className={`card__like-btn ${
-            isLiked ? "card__like-btn_liked" : "card__like-btn"
-          }`}
-          onClick={() => {
-            if (!item?._id) {
-              console.error("missing item._id in ItemCard");
-              return;
-            }
-
-            handleCardLike({
-              id: item._id,
-              isLiked,
-            });
-          }}
-          aria-label="Toggle like"
-        />
+        {isLoggedIn && (
+          <button
+            className={`card__like-btn ${
+              isLiked ? "card__like-btn_liked" : ""
+            }`}
+            onClick={handleLikeClick}
+            aria-label="Toggle like"
+          />
+        )}
       </div>
       <img
         onClick={handleCardClick}

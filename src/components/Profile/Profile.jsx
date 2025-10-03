@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "./Profile.css";
 import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
@@ -10,6 +9,9 @@ function Profile({
   setActiveModal,
   handleLogout,
   userData,
+  handleCardLike,
+  userId,
+  isLoggedIn,
 }) {
   return (
     <div className="profile">
@@ -25,7 +27,9 @@ function Profile({
           onCardClick={onCardClick}
           clothingItems={clothingItems}
           handleAddClick={handleAddClick}
-          setActiveModal={setActiveModal}
+          handleCardLike={handleCardLike}
+          userId={userId}
+          isLoggedIn={isLoggedIn}
         />
       </section>
     </div>

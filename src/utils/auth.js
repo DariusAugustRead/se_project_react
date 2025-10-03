@@ -1,5 +1,7 @@
 const baseUrl = "http://localhost:3001";
 
+import { handleServerResponse } from "./api.js";
+
 export const register = (name, avatar, email, password) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
@@ -7,7 +9,7 @@ export const register = (name, avatar, email, password) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name, avatar, email, password }),
-  });
+  }).then(handleServerResponse);
 };
 
 export const login = (email, password) => {
@@ -17,10 +19,7 @@ export const login = (email, password) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    if (res.ok) return res.json();
-    throw new Error("login failed");
-  });
+  }).then(handleServerResponse);
 };
 
 export const logout = () => {
@@ -29,7 +28,7 @@ export const logout = () => {
     headers: {
       "Content-Type": "application/json",
     },
-  });
+  }).then(handleServerResponse);
 };
 
 export const checkToken = (token) => {
@@ -39,7 +38,5 @@ export const checkToken = (token) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  }).then((res) => {
-    return res;
-  });
+  }).then(handleServerResponse);
 };

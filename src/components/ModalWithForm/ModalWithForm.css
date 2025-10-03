@@ -23,8 +23,8 @@
 }
 
 .modal__close {
-  background: transparent url(../../assets/close.png);
-  opacity: 100%;
+  background: url(../../assets/close-preview.png);
+  opacity: 0.6;
   width: 16px;
   height: 16px;
   position: absolute;
@@ -35,8 +35,8 @@
 }
 
 .modal__close:hover {
-  background: transparent url(../../assets/close_hover.png);
   transition: background 0.2s;
+  opacity: 1;
 }
 
 .modal__content {
@@ -170,7 +170,7 @@
   .modal__submit {
     margin-top: 30px;
     padding: 12px 126px 12px 125px;
-    max-width: 343px;
+    max-width: 100%;
     white-space: nowrap;
   }
 }

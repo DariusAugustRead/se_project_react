@@ -1,6 +1,6 @@
 const baseUrl = "http://localhost:3001";
 
-export const handleServerResponse = (res) => {
+const handleServerResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
 
@@ -13,15 +13,7 @@ function login({ email, password }) {
 }
 
 const getItems = () => {
-  return fetch(`${baseUrl}/items`)
-    .then((res) => {
-      if (!res.ok) throw new Error("Failed to fetch items");
-      return res.json();
-    })
-    .catch((err) => {
-      console.error("Fetch error:", err);
-      return []; // ← return empty array explicitly
-    });
+  return fetch(`${baseUrl}/items`).then(handleServerResponse);
 };
 
 function postItems({ name, weather, imageUrl }) {
@@ -55,7 +47,7 @@ function updateProfile(name, avatar, token) {
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ name, avatar }),
-  });
+  }).then(handleServerResponse);
 }
 
 function addCardLike(itemId, token) {
@@ -79,6 +71,7 @@ function removeCardLike(itemId, token) {
 }
 
 export {
+  handleServerResponse,
   login,
   getItems,
   postItems,

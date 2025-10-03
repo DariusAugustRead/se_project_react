@@ -28,25 +28,25 @@ export default function LoginModal({
       activeModal={activeModal}
       setActiveModal={setActiveModal}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="login-email" className="modal__label">
         Email
       </label>
       <input
         type="email"
         className="modal__input"
-        id="email"
+        id="login-email"
         placeholder="Email"
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="login-password" className="modal__label">
         Password
       </label>
       <input
         type="password"
         className="modal__input"
-        id="password"
+        id="login-password"
         placeholder="Password"
         required
         value={password}

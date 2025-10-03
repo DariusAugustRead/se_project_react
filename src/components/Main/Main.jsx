@@ -10,10 +10,17 @@ function Main({
   clothingItems,
   handleCardLike,
   userId,
+  isLoggedIn,
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
-  const filteredItems = clothingItems;
+  const temp = weatherData?.temp?.[currentTemperatureUnit];
+
+  const weatherType = weatherData?.type;
+
+  const filteredItems = clothingItems.filter(
+    (item) => item.weather === weatherType
+  );
 
   return (
     <main>
@@ -21,8 +28,7 @@ function Main({
 
       <section className="cards">
         <p className="cards__text">
-          Today is {weatherData?.temp[currentTemperatureUnit]}&deg;
-          {currentTemperatureUnit} / You may want to wear:
+          Today is {temp}&deg;{currentTemperatureUnit} / You may want to wear:
         </p>
         <ul className="cards__list">
           {filteredItems.map((item, index) => (
@@ -32,6 +38,7 @@ function Main({
                 onCardClick={handleCardClick}
                 handleCardLike={handleCardLike}
                 userId={userId}
+                isLoggedIn={isLoggedIn}
               />
             </li>
           ))}
