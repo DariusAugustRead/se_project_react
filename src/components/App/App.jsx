@@ -70,7 +70,6 @@ function App() {
   // ─── Modal Logic ───────────────────────────────
   const handleCardClick = useCallback(
     (card) => {
-      if (!userData?._id) return;
       setSelectedCard(card);
       setActiveModal("preview");
     },
@@ -80,7 +79,6 @@ function App() {
   // ─── Item Actions ──────────────────────────────
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     return postItems({ name, weather, imageUrl })
-      .then(() => getItems())
       .then((res) => {
         const items = res.data;
         if (Array.isArray(items)) setClothingItems(items);
@@ -158,8 +156,6 @@ function App() {
   const handleRegistration = async ({ name, avatar, email, password }) => {
     try {
       const res = await register(name, avatar, email, password);
-      if (!res.ok) throw new Error("Registration failed");
-      await res.json();
       closeActiveModal();
       await handleLogin({ email, password });
     } catch (err) {
@@ -171,8 +167,6 @@ function App() {
     try {
       const token = localStorage.getItem("jwt");
       const res = await updateProfile(name, avatar, token);
-      if (!res.ok) throw new Error("No response from server");
-      const userData = await res.json();
       setUserData(userData);
       setIsLoggedIn(true);
       closeActiveModal();
@@ -188,10 +182,6 @@ function App() {
     if (!token) return;
 
     checkToken(token)
-      .then((res) => {
-        if (!res.ok) throw new Error("Token is invalid");
-        return res.json();
-      })
       .then((userData) => {
         setUserData(userData);
         setIsLoggedIn(true);
@@ -224,6 +214,17 @@ function App() {
         .catch(console.error);
     }
   }, [coordinates, APIkey]);
+
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
+  }, []);
 
   return (
     <AppContext.Provider
