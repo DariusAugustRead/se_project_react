@@ -20,8 +20,8 @@ export default function useClothingItems(closeActiveModal) {
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     return postItems({ name, weather, imageUrl })
       .then((res) => {
-        const items = res.data;
-        if (Array.isArray(items)) setClothingItems(items);
+        const newItem = res.data;
+        setClothingItems((prevItems) => [newItem, ...prevItems]);
       })
       .then(closeActiveModal)
       .catch(console.error);

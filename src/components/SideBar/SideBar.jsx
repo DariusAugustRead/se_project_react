@@ -1,12 +1,10 @@
-import { Link } from "react-router-dom";
 import "./SideBar.css";
-import avatar from "../../assets/avatar.svg";
 
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function SideBar({ setActiveModal, handleLogout }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <div className="sidebar">

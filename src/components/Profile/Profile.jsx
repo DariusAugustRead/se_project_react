@@ -8,7 +8,7 @@ function Profile({
   handleAddClick,
   setActiveModal,
   handleLogout,
-  userData,
+  currentUser,
   handleCardLike,
   userId,
   isLoggedIn,
@@ -19,7 +19,7 @@ function Profile({
         <SideBar
           setActiveModal={setActiveModal}
           handleLogout={handleLogout}
-          userData={userData}
+          currentUser={currentUser}
         />
       </section>
       <section className="profile__clothing-section">

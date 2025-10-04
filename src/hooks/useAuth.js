@@ -5,7 +5,7 @@ import { updateProfile } from "../utils/api.js";
 
 export default function useAuth(navigate, closeActiveModal) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [currentUser, setcurrentUser] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -13,7 +13,7 @@ export default function useAuth(navigate, closeActiveModal) {
 
     checkToken(token)
       .then((user) => {
-        setUserData(user);
+        setcurrentUser(user);
         setIsLoggedIn(true);
       })
       .catch(() => {
@@ -26,7 +26,7 @@ export default function useAuth(navigate, closeActiveModal) {
     const data = await login(email, password);
     localStorage.setItem("jwt", data.token);
     setIsLoggedIn(true);
-    setUserData(data.user);
+    setcurrentUser(data.user);
     closeActiveModal();
   };
 
@@ -34,7 +34,7 @@ export default function useAuth(navigate, closeActiveModal) {
     await logout();
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
-    setUserData(null);
+    setcurrentUser(null);
     closeActiveModal();
     navigate("/");
   };
@@ -47,15 +47,15 @@ export default function useAuth(navigate, closeActiveModal) {
 
   const handleUpdateUser = async (name, avatar) => {
     const token = localStorage.getItem("jwt");
-    const res = await updateProfile(name, avatar, token);
-    setUserData(res.user);
+    const updatedUser = await updateProfile(name, avatar, token);
+    setcurrentUser(updatedUser);
     setIsLoggedIn(true);
     closeActiveModal();
   };
 
   return {
     isLoggedIn,
-    userData,
+    currentUser,
     handleLogin,
     handleLogout,
     handleRegistration,

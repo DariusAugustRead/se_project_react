@@ -2,7 +2,7 @@ import avatar from "../../assets/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import "./MobileUserModal.css";
 
-function MobileUserModal({ isOpen, onClose, handleAddClick, userData }) {
+function MobileUserModal({ isOpen, onClose, handleAddClick, currentUser }) {
   return (
     <div className={`modal ${isOpen && "modal_opened"} modal_mobile`}>
       <div className="mobile-header__user-container">
@@ -12,11 +12,13 @@ function MobileUserModal({ isOpen, onClose, handleAddClick, userData }) {
           onClick={onClose}
         />
         <div className="mobile-header__user-info">
-          <p className="mobile-header__username">{userData?.name || "Guest"}</p>
+          <p className="mobile-header__username">
+            {currentUser?.name || "Guest"}
+          </p>
           <img
-            alt={userData?.name || "User avatar"}
+            alt={currentUser?.name || "User avatar"}
             className="mobile-header__avatar"
-            src={userData?.avatar || avatar}
+            src={currentUser?.avatar || avatar}
           />
         </div>
         <button

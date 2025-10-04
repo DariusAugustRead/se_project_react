@@ -13,7 +13,7 @@ function Header({
   isLoggedIn,
   setActiveModal,
 }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   const currentDate = new Date().toLocaleString("default", {
     month: "long",

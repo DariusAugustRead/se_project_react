@@ -50,7 +50,8 @@ function App() {
 
   const {
     isLoggedIn,
-    userData,
+    currentUser,
+    setcurrentUser,
     handleLogin,
     handleLogout,
     handleRegistration,
@@ -80,11 +81,12 @@ function App() {
     <AppContext.Provider
       value={{
         isLoggedIn,
-        userData,
+        currentUser,
+        setcurrentUser,
         setActiveModal,
       }}
     >
-      <CurrentUserContext.Provider value={userData}>
+      <CurrentUserContext.Provider value={{ currentUser, setcurrentUser }}>
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
         >
@@ -108,7 +110,7 @@ function App() {
                       handleCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       handleCardLike={handleCardLike}
-                      userId={userData?._id || ""}
+                      userId={currentUser?._id || ""}
                       isLoggedIn={isLoggedIn}
                     />
                   }
@@ -124,8 +126,8 @@ function App() {
                         setActiveModal={setActiveModal}
                         handleLogout={handleLogout}
                         handleCardLike={handleCardLike}
-                        userData={userData?._id || ""}
-                        isOwn={true}
+                        currentUser={currentUser}
+                        isLoggedIn={isLoggedIn}
                       />
                     </ProtectedRoute>
                   }
@@ -146,7 +148,7 @@ function App() {
                   card={selectedCard}
                   onClick={handleCardDelete}
                   handleCardLike={handleCardLike}
-                  isOwn={selectedCard?.owner === userData?._id}
+                  isOwn={selectedCard?.owner === currentUser?._id}
                 />
               </>
             )}
@@ -154,7 +156,7 @@ function App() {
               isOpen={activeModal === "mobile-modal"}
               onClose={closeActiveModal}
               handleAddClick={handleAddClick}
-              userData={userData}
+              currentUser={currentUser}
             />
             <RegisterModal
               isOpen={activeModal === "register"}
