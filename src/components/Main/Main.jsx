@@ -18,9 +18,9 @@ function Main({
 
   const weatherType = weatherData?.type;
 
-  const filteredItems = clothingItems.filter(
-    (item) => item.weather === weatherType
-  );
+  const filteredItems = weatherType
+    ? clothingItems.filter((item) => item.weather === weatherType)
+    : clothingItems;
 
   return (
     <main>
