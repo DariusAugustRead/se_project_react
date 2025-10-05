@@ -41,7 +41,7 @@ function ItemModal({ activeModal, onClose, card, onClick, isOwn }) {
             <p className="modal__weather">Weather: {card.weather}</p>
           </div>
 
-          {isOwn && location.pathname === "/profile" && (
+          {isOwn && (
             <button className="modal__delete-btn" onClick={onClick}>
               Delete Item
             </button>

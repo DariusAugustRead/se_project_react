@@ -51,7 +51,7 @@ function App() {
   const {
     isLoggedIn,
     currentUser,
-    setcurrentUser,
+    setCurrentUser,
     handleLogin,
     handleLogout,
     handleRegistration,
@@ -95,12 +95,11 @@ function App() {
     <AppContext.Provider
       value={{
         isLoggedIn,
-        currentUser,
-        setcurrentUser,
+        setCurrentUser,
         setActiveModal,
       }}
     >
-      <CurrentUserContext.Provider value={{ currentUser, setcurrentUser }}>
+      <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
         >
@@ -140,7 +139,6 @@ function App() {
                         setActiveModal={setActiveModal}
                         handleLogout={handleLogout}
                         handleCardLike={handleCardLike}
-                        currentUser={currentUser}
                         isLoggedIn={isLoggedIn}
                       />
                     </ProtectedRoute>
@@ -170,7 +168,6 @@ function App() {
               isOpen={activeModal === "mobile-modal"}
               onClose={closeActiveModal}
               handleAddClick={handleAddClick}
-              currentUser={currentUser}
             />
             <RegisterModal
               isOpen={activeModal === "register"}

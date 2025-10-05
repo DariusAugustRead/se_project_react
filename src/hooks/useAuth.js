@@ -5,7 +5,7 @@ import { updateProfile } from "../utils/api.js";
 
 export default function useAuth(navigate, closeActiveModal) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setcurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -13,7 +13,7 @@ export default function useAuth(navigate, closeActiveModal) {
 
     checkToken(token)
       .then((user) => {
-        setcurrentUser(user);
+        setCurrentUser(user);
         setIsLoggedIn(true);
       })
       .catch(() => {
@@ -23,34 +23,50 @@ export default function useAuth(navigate, closeActiveModal) {
   }, []);
 
   const handleLogin = async ({ email, password }) => {
-    const data = await login(email, password);
-    localStorage.setItem("jwt", data.token);
-    setIsLoggedIn(true);
-    setcurrentUser(data.user);
-    closeActiveModal();
+    try {
+      const data = await login(email, password);
+      localStorage.setItem("jwt", data.token);
+      setIsLoggedIn(true);
+      setCurrentUser(data.user);
+      closeActiveModal();
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
   };
 
   const handleLogout = async () => {
-    await logout();
-    localStorage.removeItem("jwt");
-    setIsLoggedIn(false);
-    setcurrentUser(null);
-    closeActiveModal();
-    navigate("/");
+    try {
+      await logout();
+      localStorage.removeItem("jwt");
+      setIsLoggedIn(false);
+      setCurrentUser(null);
+      closeActiveModal();
+      navigate("/");
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
   };
 
   const handleRegistration = async ({ name, avatar, email, password }) => {
-    await register(name, avatar, email, password);
-    closeActiveModal();
-    await handleLogin({ email, password });
+    try {
+      await register(name, avatar, email, password);
+      closeActiveModal();
+      await handleLogin({ email, password });
+    } catch (err) {
+      console.error("Registration failed:", err);
+    }
   };
 
   const handleUpdateUser = async (name, avatar) => {
-    const token = localStorage.getItem("jwt");
-    const updatedUser = await updateProfile(name, avatar, token);
-    setcurrentUser(updatedUser);
-    setIsLoggedIn(true);
-    closeActiveModal();
+    try {
+      const token = localStorage.getItem("jwt");
+      const updatedUser = await updateProfile(name, avatar, token);
+      setCurrentUser(updatedUser);
+      setIsLoggedIn(true);
+      closeActiveModal();
+    } catch (err) {
+      console.error("Update profile failed:", err);
+    }
   };
 
   return {
