@@ -4,14 +4,18 @@
   right: 0;
   bottom: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
   visibility: hidden;
+  z-index: 100;
 }
 
 .modal_opened {
+  display: flex;
   visibility: visible;
 }
 
@@ -47,6 +51,7 @@
   width: 100%;
   box-sizing: border-box;
   border-radius: 20px;
+  z-index: 101;
 }
 
 .modal__form {
@@ -159,6 +164,12 @@
   .modal__content {
     border-radius: 12px 12px 0 0;
     align-self: flex-end;
+  }
+
+  .modal__close {
+    background: url(../../assets/close-preview_mobile.png);
+    width: 20px;
+    height: 20px;
   }
 
   .modal__title {

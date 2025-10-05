@@ -1,5 +1,5 @@
 // ─── React & Router ─────────────────────────────
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 // ─── Styles ─────────────────────────────────────
@@ -76,6 +76,20 @@ function App() {
   const handleMobileUserModal = () => {
     setActiveModal("mobile-modal");
   };
+
+  useEffect(() => {
+    const handleEscClose = (evt) => {
+      if (evt.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [closeActiveModal]);
 
   return (
     <AppContext.Provider

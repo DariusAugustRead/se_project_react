@@ -1,4 +1,5 @@
 import "./ModalWithForm.css";
+import { useEffect } from "react";
 
 function ModalWithForm({
   children,
@@ -11,9 +12,36 @@ function ModalWithForm({
   activeModal,
   setActiveModal,
 }) {
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("modal_opened")) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleEsc);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, onClose]);
+
   return (
-    <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
-      <div className="modal__content">
+    <div
+      className={`modal ${isOpen ? "modal_opened" : ""}`}
+      onClick={handleOverlayClick}
+    >
+      <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <h2 className="modal__title">{title}</h2>
         <button type="button" className="modal__close" onClick={onClose} />
         <form onSubmit={onSubmit} className="modal__form">
