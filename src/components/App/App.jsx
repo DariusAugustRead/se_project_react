@@ -1,25 +1,19 @@
-// ─── React & Router ─────────────────────────────
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-// ─── Styles ─────────────────────────────────────
 import "./App.css";
 
-// ─── Constants ──────────────────────────────────
 import { coordinates, APIkey } from "../../utils/constants";
 
-// ─── Contexts ───────────────────────────────────
 import AppContext from "../../contexts/AppContext";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoutes.jsx";
 
-// ─── Hooks ──────────────────────────────────────
 import useAuth from "../../hooks/useAuth";
 import useClothingItems from "../../hooks/useClothingItems";
 import useWeather from "../../hooks/useWeather";
 
-// ─── Components ─────────────────────────────────
 import AddItemModal from "../AddItemModal/AddItemModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import Footer from "../Footer/Footer";
