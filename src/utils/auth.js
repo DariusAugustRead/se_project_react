@@ -16,7 +16,7 @@ export const register = (name, avatar, email, password) => {
 };
 
 export const login = (email, password) => {
-  return fetch(`${baseUrl}/login`, {
+  return fetch(`${baseUrl}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
