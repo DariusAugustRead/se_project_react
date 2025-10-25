@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import avatar from "../../assets/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import "./MobileUserModal.css";

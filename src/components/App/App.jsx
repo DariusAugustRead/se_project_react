@@ -162,6 +162,7 @@ function App() {
               isOpen={activeModal === "mobile-modal"}
               onClose={closeActiveModal}
               handleAddClick={handleAddClick}
+              currentUser={currentUser}
             />
             <RegisterModal
               isOpen={activeModal === "register"}
