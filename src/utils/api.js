@@ -1,6 +1,6 @@
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.wtwr.home-ip.hu"
+    ? "https://api.wear.strangled.net"
     : "http://localhost:3001";
 
 const handleServerResponse = (res) => {
